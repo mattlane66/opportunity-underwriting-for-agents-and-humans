@@ -163,10 +163,12 @@ Produce two layers:
 
 The recommendation vocabulary is:
 
-- `PURSUE`
-- `TEST`
-- `HOLD`
-- `REJECT`
+- `PURSUE` — evidence supports making the **stated commitment** and clearing the stated hurdle;
+- `TEST` — the opportunity is not yet underwritable for the larger commitment, but a bounded evidence-gathering step has high decision value;
+- `HOLD` — current evidence/timing does not justify the next commitment and there is no compelling immediate test;
+- `REJECT` — a fatal gate, refuted load-bearing crux, or weight of evidence prevents the opportunity from clearing the stated hurdle.
+
+Every final verdict must name the crux/fatal-gate IDs that actually drive it. A final verdict cannot leave FATAL/HIGH cruxes merely `UNTESTED`; `PURSUE` requires all FATAL cruxes to be supported and every declared fatal gate to pass.
 
 The agent recommends. The human authorizes consequential commitment.
 

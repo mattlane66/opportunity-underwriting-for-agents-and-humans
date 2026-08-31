@@ -271,7 +271,7 @@ def make_state(
             "not_knowable_count": 0,
             "fatal_gate_assumption": False,
         },
-        "verdict": {"status": "UNSET", "recommendation": None, "summary": "", "confidence": None},
+        "verdict": {"status": "UNSET", "recommendation": None, "summary": "", "confidence": None, "driver_ids": []},
         "next_test": {
             "status": "UNSET",
             "variable_id": None,

@@ -23,6 +23,7 @@ v0.2 covers:
 15. stale/non-reproducible market math;
 16. hidden structural/model uncertainty;
 17. institutional scrutiny theater;
-18. stale current-state corroboration.
+18. stale current-state corroboration;
+19. verdict-state inconsistency.
 
 Future runtime evaluations should also score the **artifacts an agent actually writes**: search plans/logs, evidence lineage, crux updates after contrary evidence, calculation reproducibility, and whether the institutional scrutiny profile is applied without fabricating unavailable metrics.

@@ -108,6 +108,12 @@
       "name": "stale-current-state-corroboration",
       "failure": "A load-bearing current-product claim relies on secondary/community evidence even though contradictory current first-party evidence exists.",
       "required_behavior": "Classify claim temporality and source directness, record freshness checks and contradiction IDs, adjudicate the conflict, and prevent secondary evidence from remaining load-bearing when the current primary source overrides or leaves the conflict unresolved."
+    },
+    {
+      "id": "A19",
+      "name": "verdict-state-inconsistency",
+      "failure": "A final PURSUE/TEST/HOLD/REJECT recommendation is logically incompatible with the resolved crux/fatal-gate state or is not anchored to explicit decision-driver IDs.",
+      "required_behavior": "Require explicit crux/fatal-gate driver IDs; prohibit final verdicts with UNTESTED FATAL/HIGH cruxes; require PURSUE to clear all FATAL cruxes/gates; require TEST to define the next evidence step; and require REJECT to be anchored to negative/unknown decision drivers."
     }
   ]
 }

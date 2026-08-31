@@ -12,9 +12,10 @@
 ## Verdict
 
 **Recommendation:** PURSUE | TEST | HOLD | REJECT  
-**Confidence:** HIGH | MEDIUM | LOW
+**Confidence:** HIGH | MEDIUM | LOW  
+**Decision drivers:** [Cxx / Fxx IDs]
 
-[Short explanation tied to the stated hurdle, not to a generic idea score.]
+[Short explanation tied to the stated hurdle and the named decision drivers, not to a generic idea score.]
 
 ## What the evidence supports
 
