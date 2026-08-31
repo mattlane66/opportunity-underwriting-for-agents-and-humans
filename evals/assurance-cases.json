@@ -1,15 +1,107 @@
 {
-  "schema_version": "0.1.0",
+  "schema_version": "0.2.0",
   "cases": [
-    {"id":"A01","name":"arbitrary-som","failure":"SOM is declared as an arbitrary percentage of TAM/SAM without acquisition/adoption mechanics.","required_behavior":"Reject the derivation and require a reach/conversion/retention/revenue model or NOT_ESTIMABLE."},
-    {"id":"A02","name":"fake-cac","failure":"An unlaunched opportunity is assigned a plausible-looking CAC without direct evidence.","required_behavior":"Require valid supporting evidence or mark CAC NOT_KNOWABLE_FROM_DESK_RESEARCH and name a test."},
-    {"id":"A03","name":"attention-equals-demand","failure":"Search/social/community attention is promoted into demonstrated economic demand.","required_behavior":"Keep Tier E/F evidence supporting-only; economic demand cannot be demonstrated from those tiers alone."},
-    {"id":"A04","name":"analyst-tam-dependence","failure":"A headline commercial market estimate is used as the primary TAM without bottom-up reconstruction.","required_behavior":"Require a bottom-up primary market construction plus at least one independent cross-check."},
-    {"id":"A05","name":"category-creation-collapse","failure":"Current spend is treated as the ceiling on supplier revenue or economic value for a category-creating idea.","required_behavior":"Keep spend, revenue, and value pools separate."},
-    {"id":"A06","name":"unknown-suppression","failure":"Load-bearing ASSUMPTION/NOT_KNOWABLE variables disappear from the executive evidence burden.","required_behavior":"Evidence-burden counts must reconcile exactly to the load-bearing evidence ledger."},
-    {"id":"A07","name":"fatal-gate-burial","failure":"A fatal gate fails but the workflow continues mechanically through downstream modeling.","required_behavior":"Route to synthesis/stop unless an explicit evidence-changing reason justifies continued research."},
-    {"id":"A08","name":"context-blindness","failure":"Napkin-stage and growth-stage opportunities use the same evidence profile.","required_behavior":"Decision context must control the evidence emphasis and primary question."},
-    {"id":"A09","name":"cagr-ambiguity","failure":"CAGR is reported without real/nominal, currency, years, geography, or market definition metadata.","required_behavior":"Reject incomplete CAGR metadata; real series also require a base year."},
-    {"id":"A10","name":"confirmation-only-search","failure":"Falsification is marked complete without any genuinely inverted query.","required_behavior":"Require at least one recorded query designed to find evidence against the thesis."}
+    {
+      "id": "A01",
+      "name": "arbitrary-som",
+      "failure": "SOM is declared as an arbitrary percentage of TAM/SAM without acquisition/adoption mechanics.",
+      "required_behavior": "Reject the derivation and require a reach/conversion/retention/revenue model or NOT_ESTIMABLE."
+    },
+    {
+      "id": "A02",
+      "name": "fake-cac",
+      "failure": "An unlaunched opportunity is assigned a plausible-looking CAC without direct evidence.",
+      "required_behavior": "Require valid supporting evidence or mark CAC NOT_KNOWABLE_FROM_DESK_RESEARCH and name a test."
+    },
+    {
+      "id": "A03",
+      "name": "attention-equals-demand",
+      "failure": "Search/social/community attention is promoted into demonstrated economic demand.",
+      "required_behavior": "Keep Tier E/F evidence supporting-only; economic demand cannot be demonstrated from those tiers alone."
+    },
+    {
+      "id": "A04",
+      "name": "analyst-tam-dependence",
+      "failure": "A headline commercial market estimate is used as the primary TAM without bottom-up reconstruction.",
+      "required_behavior": "Require a bottom-up primary market construction plus at least one independent cross-check."
+    },
+    {
+      "id": "A05",
+      "name": "category-creation-collapse",
+      "failure": "Current spend is treated as the ceiling on supplier revenue or economic value for a category-creating idea.",
+      "required_behavior": "Keep spend, revenue, and value pools separate."
+    },
+    {
+      "id": "A06",
+      "name": "unknown-suppression",
+      "failure": "Load-bearing ASSUMPTION/NOT_KNOWABLE variables disappear from the executive evidence burden.",
+      "required_behavior": "Evidence-burden counts must reconcile exactly to the load-bearing evidence ledger."
+    },
+    {
+      "id": "A07",
+      "name": "fatal-gate-burial",
+      "failure": "A fatal gate fails but the workflow continues mechanically through downstream modeling.",
+      "required_behavior": "Route to synthesis/stop unless an explicit evidence-changing reason justifies continued research."
+    },
+    {
+      "id": "A08",
+      "name": "context-blindness",
+      "failure": "Napkin-stage and growth-stage opportunities use the same maturity evidence profile.",
+      "required_behavior": "Decision context must control the evidence emphasis and primary question."
+    },
+    {
+      "id": "A09",
+      "name": "cagr-ambiguity",
+      "failure": "CAGR is reported without real/nominal, currency, years, geography, or market definition metadata.",
+      "required_behavior": "Reject incomplete CAGR metadata; real series also require a base year."
+    },
+    {
+      "id": "A10",
+      "name": "confirmation-only-search",
+      "failure": "A FATAL/HIGH crux is finalized without a genuinely adversarial logged search.",
+      "required_behavior": "Require adversarial search coverage for every FATAL/HIGH crux."
+    },
+    {
+      "id": "A11",
+      "name": "adversarial-theater",
+      "failure": "Contrary searches are logged but the crux is never explicitly adjudicated afterward.",
+      "required_behavior": "Require strongest-for/against/rival evidence plus post-search adjudication and status-change record."
+    },
+    {
+      "id": "A12",
+      "name": "false-corroboration",
+      "failure": "Different URLs repeating one upstream statistic are treated as an independent market-size cross-check.",
+      "required_behavior": "Require method independence plus distinct evidence lineage or an explicit defensible independence rationale."
+    },
+    {
+      "id": "A13",
+      "name": "demand-dimension-conflation",
+      "failure": "Large workaround spend is used to conclude that customers will buy the proposed solution.",
+      "required_behavior": "Keep problem economic burden separate from budget availability, solution WTP, and adoption."
+    },
+    {
+      "id": "A14",
+      "name": "hurdle-free-verdict",
+      "failure": "A final PURSUE/REJECT decision is issued without defining what economic outcome would make the opportunity worthwhile.",
+      "required_behavior": "Require a DEFINED decision hurdle for terminal go/no-go verdicts."
+    },
+    {
+      "id": "A15",
+      "name": "prose-math-drift",
+      "failure": "A narrative TAM/SAM or calculation no longer reproduces from the evidence ledger.",
+      "required_behavior": "Require deterministic calculation artifacts and reject stale outputs."
+    },
+    {
+      "id": "A16",
+      "name": "structural-uncertainty-hiding",
+      "failure": "One market definition is selected even though other plausible definitions materially change the decision, without reporting robustness.",
+      "required_behavior": "Require a robustness judgment and rationale across plausible definitions before final synthesis."
+    },
+    {
+      "id": "A17",
+      "name": "institutional-scrutiny-theater",
+      "failure": "A venture/growth/PE scrutiny profile is selected but required commercial-review checks remain unassessed at final verdict.",
+      "required_behavior": "Require every stage-specific scrutiny check to be explicitly EVIDENCED, UNKNOWN, NOT_APPLICABLE, or OUTSIDE_SCOPE; never silently skip the review lane."
+    }
   ]
 }

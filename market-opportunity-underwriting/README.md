@@ -2,38 +2,45 @@
 
 Evidence-based market opportunity underwriting for deciding whether a sufficiently large, reachable, economically attractive market exists for a specific business opportunity.
 
+## Start in 60 seconds
+
+If you just want to use it, go to **[START_HERE.md](START_HERE.md)**.
+
+The simplest path is:
+
+1. turn on the strongest research/deep-research mode in ChatGPT, Claude, Gemini, or another research-capable chat;
+2. attach or paste [`PORTABLE_PROMPT.md`](PORTABLE_PROMPT.md);
+3. provide five inputs: idea, customer, problem, geography, decision;
+4. run the research;
+5. read the Decision Brief first.
+
 ## Choose your path
 
-### Run with an agent and files — recommended
+### Research-capable chat — lowest friction
 
-Use [`QUICKSTART.md`](QUICKSTART.md) and [`SKILL.md`](SKILL.md). The workflow persists an explicit research state and evidence ledger, validates hard methodological safeguards, and determines the smallest valid next move from the evidence actually available.
+Use [`START_HERE.md`](START_HERE.md) and [`PORTABLE_PROMPT.md`](PORTABLE_PROMPT.md).
 
-### Run in a plain chat product
+The portable path preserves the core methodology and a cumulative state packet, but cannot make persistence, search logging, deterministic math, and validation as reliable as a file-backed agent.
 
-Use [`PORTABLE_PROMPT.md`](PORTABLE_PROMPT.md). It is a generated fallback for ChatGPT, Claude, Gemini, or another capable research model. It preserves the core rules but cannot make state persistence as reliable as the file-backed workflow.
+### Agent with files/code — highest execution quality
+
+Use [`QUICKSTART.md`](QUICKSTART.md) and [`SKILL.md`](SKILL.md).
+
+The workflow persists `input.json`, `research-state.json`, `evidence-ledger.json`, `search-plan.json`, `search-log.json`, and `calculations.json`.
 
 ### Audit or adapt the methodology
 
 Read [`PROTOCOL.md`](PROTOCOL.md) and the focused references under [`references/`](references/).
 
+## What v0.2 adds
+
+The method now separates problem economic burden, budget availability, solution willingness to pay, behavioral adoption, and reachability.
+
+It also adds explicit decision hurdles, stage-specific institutional scrutiny from seed VC through growth equity and PE commercial diligence, Value-of-Information-style research prioritization, reproducible search plans/logs, source-lineage tracking, structural/model uncertainty, deterministic market calculations, and crux-by-crux adversarial adjudication.
+
 ## Minimum human input
 
-```text
-Idea:
-...
-
-Target customer:
-...
-
-Problem / job:
-...
-
-Initial geography:
-...
-
-Decision to make:
-...
-```
+Idea, target customer, problem/job, initial geography, and decision to make are enough to start.
 
 Additional inputs are optional. The method should research, bound, explicitly assume, or mark missing parameters as `NOT_KNOWABLE_FROM_DESK_RESEARCH`; it must not invent them merely to complete a model.
 
@@ -41,28 +48,12 @@ Additional inputs are optional. The method should research, bound, explicitly as
 
 The human-facing output is a **Decision Brief** organized around:
 
-> decision → verdict → strongest evidence → load-bearing uncertainty → best-supported market size → reachability → economics if knowable → fatal gate → cheapest discriminating test
+> hurdle → verdict → cruxes → market-in-gap dimensions → best-supported size → reachability → economics if knowable → structural robustness → fatal gate → evidence burden → highest-value next evidence
 
-The **Underwriting Appendix** preserves the audit trail: market definitions, calculations, evidence ledger, contradictory evidence, searches, assumptions, conditional modules, sensitivity, and falsification.
+The **Underwriting Appendix** preserves the audit trail: market definitions, search plan/log, deterministic calculations, source lineages, evidence ledger, contradictory evidence, assumptions, conditional modules, sensitivity, and adversarial adjudication.
 
 A valid result may be `PURSUE`, `TEST`, `HOLD`, or `REJECT`. It may also state that the market cannot yet be responsibly underwritten.
 
-## Core sequence
+## Scope boundary
 
-```text
-0 Classify decision/context
-  ↓
-1 Find 2–3 cruxes
-  ↓
-2 Attack fatal gates
-  ↓
-3 Establish gap + economic demand
-  ↓
-4 Size only what is supportable
-  ↓
-5 Underwrite adoption/economics conditionally
-  ↓
-6 Falsify + synthesize decision
-```
-
-If a fatal gate fails, the workflow may stop early. Completion of sections is never a goal in itself.
+This skill underwrites the **market/commercial opportunity**. In PE/acquisition contexts it does not replace quality-of-earnings/accounting, legal/tax, technical/operational, management/governance, financing/debt-capacity, or other transaction diligence.

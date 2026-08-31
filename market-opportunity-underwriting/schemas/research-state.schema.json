@@ -4,12 +4,13 @@
   "title": "Market Opportunity Underwriting Research State",
   "type": "object",
   "required": [
-    "schema_version", "phase", "status", "decision_context", "context_profile", "market_definition",
-    "cruxes", "fatal_gates", "gap", "demand", "sizing", "reachability", "conditional_modules",
-    "falsification", "evidence_burden", "verdict", "next_test", "notes"
+    "schema_version", "phase", "status", "decision_context", "context_profile", "scrutiny_profile",
+    "decision_hurdle", "scrutiny_checks", "market_definition", "cruxes", "research_queue", "fatal_gates", "gap", "demand",
+    "sizing", "reachability", "conditional_modules", "falsification", "evidence_burden", "verdict",
+    "next_test", "notes"
   ],
   "properties": {
-    "schema_version": {"const": "0.1.0"},
+    "schema_version": {"const": "0.2.0"},
     "phase": {"enum": ["CLASSIFY", "CRUXES", "FATAL_GATES", "ESTABLISH_MARKET", "SIZE", "CONDITIONAL_UNDERWRITING", "FALSIFY", "SYNTHESIZE", "COMPLETE"]},
     "status": {"enum": ["ACTIVE", "BLOCKED", "COMPLETE"]},
     "decision_context": {"enum": ["napkin-stage", "prototype-pre-revenue", "early-revenue", "growth-stage", "corporate-market-entry", "investor-acquisition", "other"]},
@@ -22,17 +23,49 @@
       },
       "additionalProperties": false
     },
-    "decision_standard": {
+    "scrutiny_profile": {
       "type": "object",
+      "required": ["name", "focus", "adjacent_diligence"],
       "properties": {
-        "required_outcome": {"type": ["string", "null"]},
+        "name": {"enum": ["general", "venture-seed", "venture-early", "venture-growth", "growth-equity", "pe-commercial-diligence", "corporate"]},
+        "focus": {"type": "string", "minLength": 1},
+        "adjacent_diligence": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "decision_hurdle": {
+      "type": "object",
+      "required": ["status", "required_outcome", "time_horizon_years", "capital_at_risk", "notes"],
+      "properties": {
+        "status": {"enum": ["PROVISIONAL", "DEFINED"]},
+        "required_outcome": {"type": "string", "minLength": 1},
+        "time_horizon_years": {"type": "integer", "minimum": 1, "maximum": 20},
+        "capital_at_risk": {"type": "string"},
         "notes": {"type": "array", "items": {"type": "string"}}
       },
       "additionalProperties": false
     },
+    "scrutiny_checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["key", "status", "evidence_ids", "reasoning"],
+        "properties": {
+          "key": {"type": "string", "minLength": 1},
+          "status": {"enum": ["UNASSESSED", "EVIDENCED", "UNKNOWN", "NOT_APPLICABLE", "OUTSIDE_SCOPE"]},
+          "evidence_ids": {"type": "array", "items": {"type": "string"}},
+          "reasoning": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
     "market_definition": {
       "type": "object",
-      "required": ["status", "target_user", "economic_buyer", "problem_job", "geography", "unit_of_demand", "revenue_model", "category_creation", "included", "excluded"],
+      "required": [
+        "status", "target_user", "economic_buyer", "problem_job", "geography", "unit_of_demand",
+        "revenue_model", "category_creation", "included", "excluded", "candidate_definitions",
+        "selected_definition_id", "selection_rationale", "robustness_across_definitions", "robustness_notes"
+      ],
       "properties": {
         "status": {"enum": ["UNSET", "PROVISIONAL", "DEFINED"]},
         "target_user": {"type": "string"},
@@ -43,7 +76,26 @@
         "revenue_model": {"type": "string"},
         "category_creation": {"type": "boolean"},
         "included": {"type": "array", "items": {"type": "string"}},
-        "excluded": {"type": "array", "items": {"type": "string"}}
+        "excluded": {"type": "array", "items": {"type": "string"}},
+        "candidate_definitions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "label", "boundary", "rationale", "status"],
+            "properties": {
+              "id": {"type": "string", "pattern": "^MD[0-9]{2,}$"},
+              "label": {"type": "string", "minLength": 1},
+              "boundary": {"type": "string", "minLength": 1},
+              "rationale": {"type": "string", "minLength": 1},
+              "status": {"enum": ["CANDIDATE", "SELECTED", "REJECTED"]}
+            },
+            "additionalProperties": false
+          }
+        },
+        "selected_definition_id": {"type": ["string", "null"]},
+        "selection_rationale": {"type": "string"},
+        "robustness_across_definitions": {"enum": ["UNASSESSED", "ROBUST", "SENSITIVE", "NOT_APPLICABLE"]},
+        "robustness_notes": {"type": "string"}
       },
       "additionalProperties": false
     },
@@ -64,99 +116,84 @@
         "additionalProperties": false
       }
     },
-    "fatal_gates": {
+    "research_queue": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "condition", "status", "evidence_ids", "continue_reason"],
+        "required": ["id", "crux_id", "question", "decision_impact", "uncertainty", "expected_decision_change", "evidence_tractability", "cost_time", "proposed_evidence", "status", "search_plan_ids", "notes"],
         "properties": {
-          "id": {"type": "string", "pattern": "^F[0-9]{2,}$"},
-          "condition": {"type": "string", "minLength": 1},
-          "status": {"enum": ["UNTESTED", "PASS", "FAIL", "UNKNOWN"]},
-          "evidence_ids": {"type": "array", "items": {"type": "string"}},
-          "continue_reason": {"type": ["string", "null"]}
+          "id": {"type": "string", "pattern": "^RQ[0-9]{3,}$"},
+          "crux_id": {"type": "string", "pattern": "^C[0-9]{2,}$"},
+          "question": {"type": "string", "minLength": 1},
+          "decision_impact": {"enum": ["FATAL", "HIGH", "MEDIUM", "LOW"]},
+          "uncertainty": {"enum": ["HIGH", "MEDIUM", "LOW"]},
+          "expected_decision_change": {"enum": ["YES", "UNCLEAR", "NO"]},
+          "evidence_tractability": {"enum": ["HIGH", "MEDIUM", "LOW"]},
+          "cost_time": {"enum": ["LOW", "MEDIUM", "HIGH"]},
+          "proposed_evidence": {"type": "string", "minLength": 1},
+          "status": {"enum": ["OPEN", "IN_PROGRESS", "RESOLVED", "DEFERRED"]},
+          "search_plan_ids": {"type": "array", "items": {"type": "string", "pattern": "^SP[0-9]{3,}$"}},
+          "notes": {"type": "string"}
         },
         "additionalProperties": false
       }
     },
-    "gap": {
-      "type": "object",
-      "required": ["status", "evidence_ids", "reasoning"],
-      "properties": {
-        "status": {"enum": ["UNASSESSED", "YES", "NO", "UNCLEAR"]},
-        "evidence_ids": {"type": "array", "items": {"type": "string"}},
-        "reasoning": {"type": "string"}
-      },
-      "additionalProperties": false
-    },
+    "fatal_gates": {"type": "array", "items": {"type": "object"}},
+    "gap": {"type": "object"},
     "demand": {
       "type": "object",
-      "required": ["status", "highest_tier", "economic_demand_demonstrated", "evidence_ids", "reasoning"],
+      "required": ["status", "highest_tier", "economic_demand_demonstrated", "dimensions", "evidence_ids", "reasoning"],
       "properties": {
         "status": {"enum": ["UNASSESSED", "DEMONSTRATED", "PARTIAL", "NOT_DEMONSTRATED", "UNCLEAR"]},
         "highest_tier": {"enum": ["A", "B", "C", "D", "E", "F", null]},
         "economic_demand_demonstrated": {"type": "boolean"},
-        "evidence_ids": {"type": "array", "items": {"type": "string"}},
-        "reasoning": {"type": "string"}
-      },
-      "additionalProperties": false
-    },
-    "sizing": {
-      "type": "object",
-      "required": ["pools", "tam", "cross_checks", "sam"],
-      "properties": {
-        "pools": {
+        "dimensions": {
           "type": "object",
-          "required": ["collapsed", "spend", "revenue", "value"],
-          "properties": {
-            "collapsed": {"type": "boolean"},
-            "spend": {"type": "object"},
-            "revenue": {"type": "object"},
-            "value": {"type": "object"}
-          },
-          "additionalProperties": false
-        },
-        "tam": {"type": "object"},
-        "cross_checks": {"type": "array", "items": {"type": "object"}},
-        "sam": {"type": "object"}
-      },
-      "additionalProperties": false
-    },
-    "reachability": {
-      "type": "object",
-      "required": ["status", "som_estimation", "arbitrary_share_of_tam_or_sam", "model_structure", "parameters", "year3", "year5", "sam_share_output"],
-      "properties": {
-        "status": {"enum": ["UNASSESSED", "NOT_ESTIMABLE", "BOUNDED", "QUANTIFIED"]},
-        "som_estimation": {"enum": ["NOT_ATTEMPTED", "NOT_ESTIMABLE", "BOUNDED", "QUANTIFIED"]},
-        "arbitrary_share_of_tam_or_sam": {"type": "boolean"},
-        "model_structure": {"type": "string"},
-        "parameters": {"type": "array", "items": {"type": "object"}},
-        "year3": {"type": ["number", "null"]},
-        "year5": {"type": ["number", "null"]},
-        "sam_share_output": {"type": ["number", "null"]}
-      },
-      "additionalProperties": false
-    },
-    "conditional_modules": {"type": "object"},
-    "falsification": {
-      "type": "object",
-      "required": ["status", "queries", "evidence_ids", "contradictions"],
-      "properties": {
-        "status": {"enum": ["NOT_RUN", "IN_PROGRESS", "COMPLETE"]},
-        "queries": {
-          "type": "array",
-          "items": {
+          "required": ["problem_economic_burden", "budget_availability", "solution_wtp", "behavioral_adoption"],
+          "additionalProperties": {
             "type": "object",
-            "required": ["query", "inverted"],
+            "required": ["status", "evidence_ids", "reasoning"],
             "properties": {
-              "query": {"type": "string", "minLength": 1},
-              "inverted": {"type": "boolean"}
+              "status": {"enum": ["STRONG", "MODERATE", "WEAK", "UNKNOWN", "NOT_APPLICABLE"]},
+              "evidence_ids": {"type": "array", "items": {"type": "string"}},
+              "reasoning": {"type": "string"}
             },
             "additionalProperties": false
           }
         },
         "evidence_ids": {"type": "array", "items": {"type": "string"}},
-        "contradictions": {"type": "array", "items": {"type": "string"}}
+        "reasoning": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "sizing": {"type": "object"},
+    "reachability": {"type": "object"},
+    "conditional_modules": {"type": "object"},
+    "falsification": {
+      "type": "object",
+      "required": ["status", "queries", "evidence_ids", "contradictions", "coverage"],
+      "properties": {
+        "status": {"enum": ["NOT_RUN", "IN_PROGRESS", "COMPLETE"]},
+        "queries": {"type": "array", "items": {"type": "object"}},
+        "evidence_ids": {"type": "array", "items": {"type": "string"}},
+        "contradictions": {"type": "array", "items": {"type": "string"}},
+        "coverage": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["crux_id", "adversarial_search_ids", "strongest_for", "strongest_against", "rival_explanation", "adjudication", "status_changed"],
+            "properties": {
+              "crux_id": {"type": "string", "pattern": "^C[0-9]{2,}$"},
+              "adversarial_search_ids": {"type": "array", "items": {"type": "string", "pattern": "^S[0-9]{3,}$"}},
+              "strongest_for": {"type": "string"},
+              "strongest_against": {"type": "string"},
+              "rival_explanation": {"type": "string"},
+              "adjudication": {"type": "string", "minLength": 1},
+              "status_changed": {"type": "boolean"}
+            },
+            "additionalProperties": false
+          }
+        }
       },
       "additionalProperties": false
     },

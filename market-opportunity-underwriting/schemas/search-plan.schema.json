@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mattlane66/opportunity-underwriting-for-agents-and-humans/market-opportunity-underwriting/schemas/search-plan.schema.json",
+  "title": "Market Opportunity Search Plan",
+  "type": "object",
+  "required": ["schema_version", "entries"],
+  "properties": {
+    "schema_version": {"const": "0.2.0"},
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "crux_id", "question", "support_observation", "refutation_observation", "preferred_source_classes", "concepts", "queries", "stop_condition"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^SP[0-9]{3,}$"},
+          "crux_id": {"type": "string", "pattern": "^C[0-9]{2,}$"},
+          "question": {"type": "string", "minLength": 1},
+          "support_observation": {"type": "string", "minLength": 1},
+          "refutation_observation": {"type": "string", "minLength": 1},
+          "preferred_source_classes": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "concepts": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["concept", "synonyms"],
+              "properties": {
+                "concept": {"type": "string", "minLength": 1},
+                "synonyms": {"type": "array", "items": {"type": "string"}}
+              },
+              "additionalProperties": false
+            }
+          },
+          "queries": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["query", "polarity", "route"],
+              "properties": {
+                "query": {"type": "string", "minLength": 1},
+                "polarity": {"enum": ["CONFIRMATORY", "ADVERSARIAL", "NEUTRAL"]},
+                "route": {"type": "string", "minLength": 1}
+              },
+              "additionalProperties": false
+            }
+          },
+          "stop_condition": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

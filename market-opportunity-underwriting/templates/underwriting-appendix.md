@@ -1,14 +1,18 @@
 # Market Opportunity Underwriting Appendix
 
-## 1. Scope and decision context
+## 1. Scope, context, and decision hurdle
 
 - Decision
 - Maturity/context
-- Decision threshold
-- Geography/time horizon
+- Institutional scrutiny profile
+- Required economic outcome / hurdle
+- Time horizon
+- Capital/commitment constraints
+- Geography
 - Explicit inclusions/exclusions
+- Adjacent diligence outside this skill
 
-## 2. Market definition
+## 2. Market definition and structural uncertainty
 
 - Target user
 - Economic buyer
@@ -17,72 +21,111 @@
 - Revenue model
 - Current alternatives/substitutes
 - Category-creation status
+- Candidate market definitions/models
+- Selected definition + rationale
+- Decision robustness across plausible definitions
 
-## 3. Cruxes and fatal gates
+## 3. Cruxes, VOI queue, and fatal gates
 
-For each crux/gate show claim, support status, evidence IDs, contradictions, and cheapest test.
+For each crux/gate show claim, importance, support status, evidence IDs, research priority, contradictions, and highest-value next evidence.
 
-## 4. Gap evidence
+## 4. Search strategy and reproducibility
+
+For each FATAL/HIGH crux preserve:
+
+- support observation;
+- refutation observation;
+- preferred source classes;
+- concept/synonym families;
+- exact confirmatory/adversarial queries;
+- route/database;
+- date;
+- screening/refinement;
+- stop reason.
+
+Include the relevant `search-plan.json` / `search-log.json` records.
+
+## 5. Gap evidence
 
 Current behavior, workarounds, deficiencies, economic sacrifice, and explanations for why the gap exists.
 
-## 5. Demand evidence
+## 6. Market-in-the-gap evidence
 
-Organize by evidence tier A–F. Keep stated preference/attention separate from economic demand.
+Keep four dimensions separate:
 
-## 6. Spend / revenue / value pools
+- problem economic burden;
+- budget availability;
+- solution willingness to pay;
+- behavioral adoption.
+
+Use Tier A–F only to describe evidence type/proximity, not as a single demand score.
+
+## 7. Spend / revenue / value pools
 
 Show each separately with epistemic state.
 
-## 7. TAM
+## 8. TAM
 
-- bottom-up formula;
-- inputs and evidence IDs;
+- bottom-up model;
+- deterministic calculation ID;
+- inputs, source lineages, and evidence IDs;
 - range/base if supportable;
 - independent cross-check;
+- why the cross-check is actually independent;
 - reconciliation.
 
-## 8. SAM
+## 9. SAM
 
-Show all material exclusions/constraints.
+Show all material exclusions/constraints and deterministic calculation where quantified.
 
-## 9. Reachability / SOM
+## 10. Reachability / SOM
 
-Show model structure first. Quantify only supported parameters. If not estimable, preserve the model structure and specify the identifying test.
+Show model structure first. Quantify only supported parameters. If not estimable, preserve the model structure and specify the identifying evidence/test.
 
-## 10. Conditional modules
+## 11. Conditional modules
 
 For each module, record `RUN` or `SKIPPED` and why:
 
 - growth/CAGR
 - diffusion
-- reference class
+- reference class (must be considered)
 - pricing/WTP
 - unit economics
 - competitive structure
 - financial scenarios
 
-## 11. Adversarial research
+## 12. Institutional scrutiny overlay
 
-- inverted queries;
-- contradictory evidence;
-- failed/weak analogs;
-- meaningful negative searches;
-- thesis updates.
+For the selected profile, show which stage-appropriate evidence expectations are met, unknown, or outside scope. Never fill later-stage metrics with generic benchmarks simply because the profile expects them.
 
-## 12. Sensitivity
+## 13. Adversarial adjudication
+
+For every FATAL/HIGH crux:
+
+- strongest evidence for;
+- strongest evidence against;
+- strongest rival explanation;
+- adversarial search IDs;
+- whether the crux judgment changed;
+- adjudication.
+
+## 14. Sensitivity
 
 Only when load-bearing parameters can be responsibly bounded. Identify which variables move the decision most.
 
-## 13. Evidence ledger
+## 15. Deterministic calculations
 
-| ID | Claim/input | Value/range | State | Source/date | Confidence | Load-bearing | Used by | Contradictions | Next validation |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+List calculation ID, operation, evidence inputs, units, and computed output. Narrative numbers must reconcile exactly.
 
-## 14. Evidence burden
+## 16. Evidence ledger and source lineage
+
+| ID | Claim/input | Value/range | State | Source/origin | Lineage | Effective period | Confidence | Load-bearing | Used by | Contradictions | Next validation |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+
+## 17. Evidence burden
 
 Summarize load-bearing assumptions/unknowns and fatal-gate dependence.
 
-## 15. Verdict and next test
+## 18. Verdict and highest-value next evidence
 
-Explain the decision relative to the actual threshold and name the cheapest evidence that would most reduce decision uncertainty.
+Explain the decision relative to the actual hurdle and identify the evidence most likely to change the decision, considering information value and cost/time.

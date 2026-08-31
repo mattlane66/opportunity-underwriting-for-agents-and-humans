@@ -6,9 +6,15 @@ This repository contains reusable methods for business-level opportunity underwr
 
 > **Spend research effort in proportion to decision relevance and uncertainty, not template completeness.**
 
-The goal is not to produce a large TAM or an impressive-looking five-year model. A valid result is:
+## Use it
 
-> We cannot yet underwrite this market. We have established X and Y, but Z is the load-bearing unknown. Here is the cheapest evidence that would change the decision.
+**Want the easiest path?** Open **[Start Here](./market-opportunity-underwriting/START_HERE.md)**.
+
+For most people:
+
+> turn on a research/deep-research mode → attach/paste the portable prompt → provide idea, customer, problem, geography, and decision → run
+
+For repeatable or investment-committee-grade work, use the repo-backed skill so the agent persists search logs, source lineages, deterministic calculations, and validated research state.
 
 ## What this is—and is not
 
@@ -16,13 +22,22 @@ This methodology synthesizes established economic and forecasting methods with w
 
 It combines, when decision-relevant:
 
+- crux-first and fatal-gate underwriting;
+- stage-specific scrutiny from seed venture through growth and PE commercial diligence;
 - bottom-up market construction with independent cross-checks;
+- separate economic-burden, budget, solution-WTP, adoption, and reachability judgments;
 - revealed-behavior and willingness-to-pay evidence;
 - TAM / SAM / reachability logic without arbitrary “percent of TAM” SOM;
 - reference-class forecasting and adoption modeling;
-- unit economics when the inputs are actually knowable;
-- competitive structure and “why does this gap exist?” analysis;
-- explicit uncertainty, falsification, and fatal-gate reasoning.
+- unit economics when inputs are actually knowable;
+- explicit decision hurdles and structural/model uncertainty;
+- reproducible search logs and source lineage;
+- deterministic calculations;
+- explicit uncertainty and crux-by-crux falsification.
+
+The goal is not to produce a large TAM or an impressive-looking five-year model. A valid result is:
+
+> We cannot yet underwrite this market. We have established X and Y, but Z is the load-bearing unknown. Here is the highest-value evidence that would change the decision.
 
 ## Relationship to Planning Skills
 
@@ -48,41 +63,15 @@ The relationship is **not a fixed conveyor belt**.
 - Lead User Research may hand off here when it establishes an important need but the remaining question is whether that need constitutes a sufficiently large, reachable, economically attractive market.
 - Evidence from either method does not automatically become accepted product-planning truth. A human still decides whether to pursue the opportunity and what to commit to.
 
-## First useful interaction
-
-A human can start with only five inputs:
-
-```text
-Idea:
-...
-
-Target customer:
-...
-
-Problem / job:
-...
-
-Initial geography:
-...
-
-Decision to make:
-Should I build this? / Should we enter this market? / Should we invest? / Other
-```
-
-The skill owns the research method. Missing information is researched, bounded, explicitly assumed, or marked **NOT_KNOWABLE_FROM_DESK_RESEARCH** rather than silently invented.
-
-See the [Quickstart](./market-opportunity-underwriting/QUICKSTART.md) for the file-backed path and [Portable Prompt](./market-opportunity-underwriting/PORTABLE_PROMPT.md) for a copy-paste fallback.
-
 ## Canonical implementation
 
-The robust path is the repo-backed skill:
-
+- [`START_HERE.md`](./market-opportunity-underwriting/START_HERE.md) — shortest human path;
 - [`SKILL.md`](./market-opportunity-underwriting/SKILL.md) — agent operating contract;
 - [`PROTOCOL.md`](./market-opportunity-underwriting/PROTOCOL.md) — canonical methodology;
-- [`schemas/`](./market-opportunity-underwriting/schemas/) — input, research-state, and evidence-ledger contracts;
-- [`scripts/`](./market-opportunity-underwriting/scripts/) — initialization, validation, next-move, portable-prompt generation;
+- [`schemas/`](./market-opportunity-underwriting/schemas/) — input, state, evidence, search, and calculation contracts;
+- [`scripts/`](./market-opportunity-underwriting/scripts/) — initialization, VOI routing, calculations, validation, and portable-prompt generation;
 - [`templates/`](./market-opportunity-underwriting/templates/) — human intake, Decision Brief, and Underwriting Appendix;
-- [`evals/assurance-cases.json`](./evals/assurance-cases.json) — ten methodological failure cases;
+- [`evals/assurance-cases.json`](./evals/assurance-cases.json) — machine-checkable methodological failure cases;
 - [`tests/`](./tests/) — deterministic enforcement of the hardest safeguards.
 
 The portable prompt is generated from canonical marked sections of the skill/protocol so it cannot silently drift from the repo-backed method.
@@ -91,11 +80,11 @@ The portable prompt is generated from canonical marked sections of the skill/pro
 
 Every load-bearing claim or variable should be classified as:
 
-- **OBSERVED** — directly evidenced;
-- **ESTIMATED** — calculable from reasonably strong evidence;
-- **BOUNDED** — a credible range can be established;
-- **ASSUMPTION** — required for modeling but not evidenced;
-- **NOT_KNOWABLE_FROM_DESK_RESEARCH** — requires new empirical evidence.
+- **OBSERVED**
+- **ESTIMATED**
+- **BOUNDED**
+- **ASSUMPTION**
+- **NOT_KNOWABLE_FROM_DESK_RESEARCH**
 
 `NOT_KNOWABLE_FROM_DESK_RESEARCH` is a successful analytical result.
 

@@ -6,7 +6,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from _common import CONTEXT_PROFILES, SCHEMA_VERSION, make_state, write_json
+from _common import CONTEXT_PROFILES, SCHEMA_VERSION, SCRUTINY_PROFILES, make_state, write_json
 
 
 def parse_args() -> argparse.Namespace:
@@ -18,6 +18,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--geography", required=True)
     parser.add_argument("--decision", required=True)
     parser.add_argument("--context", choices=sorted(CONTEXT_PROFILES), default="napkin-stage")
+    parser.add_argument("--scrutiny-profile", choices=sorted(SCRUTINY_PROFILES), default="general")
     parser.add_argument("--business-model")
     parser.add_argument("--price-hypothesis")
     parser.add_argument("--beachhead")
@@ -44,6 +45,7 @@ def main() -> int:
         "geography": "USER_SUPPLIED",
         "decision": "USER_SUPPLIED",
         "decision_context": "USER_SUPPLIED",
+        "scrutiny_profile": "USER_SUPPLIED",
     }
 
     input_data = {
@@ -54,6 +56,7 @@ def main() -> int:
         "geography": args.geography,
         "decision": args.decision,
         "decision_context": args.context,
+        "scrutiny_profile": args.scrutiny_profile,
         "business_model": args.business_model,
         "price_hypothesis": args.price_hypothesis,
         "beachhead": args.beachhead,
@@ -73,12 +76,18 @@ def main() -> int:
         problem=args.problem,
         geography=args.geography,
         required_outcome=args.required_economic_outcome,
+        time_horizon_years=args.time_horizon_years,
+        scrutiny_profile=args.scrutiny_profile,
+        capital_constraints=args.capital_constraints,
     )
-    ledger = {"schema_version": SCHEMA_VERSION, "entries": []}
 
+    empty = {"schema_version": SCHEMA_VERSION, "entries": []}
     write_json(root / "input.json", input_data)
     write_json(root / "research-state.json", state)
-    write_json(root / "evidence-ledger.json", ledger)
+    write_json(root / "evidence-ledger.json", empty)
+    write_json(root / "search-plan.json", empty)
+    write_json(root / "search-log.json", empty)
+    write_json(root / "calculations.json", empty)
     print(f"Initialized underwriting study at {root}")
     return 0
 

@@ -30,19 +30,19 @@ Never manufacture a number because an output template asks for one. `NOT_KNOWABL
 
 Execute the method as a staged, crux-first investigation:
 
-0. **Classify the decision and maturity context.**
-1. **Identify the 2–3 load-bearing cruxes.** Ask: what must be true for this opportunity to be attractive, and which crux is least supported?
+0. **Classify the decision, maturity context, institutional scrutiny profile, and decision hurdle.** A market is only "large enough" relative to a required outcome and time horizon.
+1. **Identify the 2–3 load-bearing cruxes and create the research queue.** Ask what must be true, which crux is least supported, and which evidence move has the highest decision value.
 2. **Attack possible fatal gates first.** If one fails, stop ceremonial downstream analysis unless additional evidence could realistically change it.
-3. **Establish the market.** Determine whether the gap is real and whether credible economic demand exists.
-4. **Size only what is supportable.** Build bottom-up TAM, apply real SAM constraints, and add at least one independent cross-check. Do not force SOM when reach/conversion/retention inputs are unknown.
-5. **Underwrite adoption, growth, pricing, competition, and unit economics conditionally.** Run only modules that are decision-relevant and sufficiently evidenced.
-6. **Run adversarial research, reconcile contradictions, and synthesize the decision.** End with the cheapest discriminating test for the most important unresolved uncertainty.
+3. **Establish the market.** Separate evidence for problem economic burden, budget availability, solution willingness to pay, and behavioral adoption; do not collapse them into one demand score.
+4. **Size only what is supportable.** Build bottom-up TAM, apply real SAM constraints, and add at least one genuinely independent cross-check. Preserve plausible alternative market definitions when they matter.
+5. **Underwrite reachability, adoption, growth, pricing, competition, and unit economics conditionally.** Run only modules that are decision-relevant and sufficiently evidenced; consider the outside-view reference class in every full study.
+6. **Run crux-by-crux adversarial research, reconcile contradictions, and synthesize the decision.** End with the highest-value next evidence for the most important unresolved uncertainty.
 
 Research should proceed:
 
-`discovery → structured evidence/state → adversarial pass → synthesis`
+`decision hurdle → crux graph → VOI-ranked evidence queue → search plan/log → structured evidence + lineage → deterministic calculations → adversarial adjudication → synthesis`
 
-Do not draft the polished investment thesis while evidence discovery is still open.
+Do not draft the polished investment thesis while evidence discovery is still open. Persist exact decision-critical searches and source lineages so another reviewer can see how evidence was found and whether corroboration is genuinely independent.
 
 ## Epistemic states
 
@@ -68,13 +68,14 @@ A full run covers:
 2. market definition;
 3. crux assumptions and possible fatal gates;
 4. evidence the problem/gap exists;
-5. evidence of economic demand;
-6. bottom-up market construction;
-7. at least one independent sizing cross-check;
+5. separate problem-burden, budget, solution-WTP, and adoption evidence;
+6. bottom-up market construction backed by deterministic calculation artifacts;
+7. at least one sizing cross-check independent in method and evidence lineage;
 8. reachability/SOM logic, quantified only where supportable;
-9. adversarial/falsification research;
-10. evidence ledger and uncertainty;
-11. verdict and next cheapest discriminating test.
+9. reproducible search plan/log plus source lineage;
+10. adversarial/falsification coverage for every FATAL/HIGH crux;
+11. evidence ledger, structural/model uncertainty, and decision robustness;
+12. verdict and highest-value next evidence.
 
 ## Hard prohibitions
 
@@ -86,7 +87,12 @@ A full run covers:
 - Never continue mechanically after a fatal gate fails merely to complete the template.
 - Never apply one maturity-stage evidence standard to all decision contexts.
 - Never report CAGR without its market definition, geography, start/end years, currency, and real-vs-nominal treatment.
-- Never omit a meaningful falsification/query-inversion pass.
+- Never omit a meaningful falsification/query-inversion pass for any FATAL/HIGH crux.
+- Never call workaround spend proof that customers will buy the proposed solution; economic burden and solution WTP are separate judgments.
+- Never count multiple secondary pages repeating one upstream statistic as independent corroboration.
+- Never report a quantified market number that cannot be reproduced from the evidence ledger and deterministic calculation artifact.
+- Never issue a final PURSUE/REJECT recommendation without an explicit decision hurdle.
+- Never let a later-stage/PE scrutiny profile manufacture metrics that the company has not actually generated.
 <!-- PORTABLE:SKILL:END -->
 
 ## Decision-context branching
@@ -122,11 +128,21 @@ At the beginning of every research move reopen:
 - `input.json`
 - `research-state.json`
 - `evidence-ledger.json`
+- `search-plan.json`
+- `search-log.json`
+- `calculations.json`
 
 Then run:
 
 ```bash
 python market-opportunity-underwriting/scripts/next_research_move.py research/my-opportunity
+python market-opportunity-underwriting/scripts/rank_research_queue.py research/my-opportunity
+```
+
+When calculations are declared, recompute them rather than doing market math in prose:
+
+```bash
+python market-opportunity-underwriting/scripts/calculate_study.py research/my-opportunity
 ```
 
 After writing structured state, validate:
@@ -142,7 +158,7 @@ Fix validation errors before advancing.
 Produce two layers:
 
 1. **Decision Brief** — short, decision-oriented, candid about fatal gates and evidence burden.
-2. **Underwriting Appendix** — definitions, calculations, evidence ledger, contradictions, searches, assumptions, conditional modules, sensitivity, and falsification.
+2. **Underwriting Appendix** — definitions, deterministic calculations, search log, source lineage, evidence ledger, contradictions, assumptions, conditional modules, sensitivity, structural uncertainty, and falsification.
 
 The recommendation vocabulary is:
 

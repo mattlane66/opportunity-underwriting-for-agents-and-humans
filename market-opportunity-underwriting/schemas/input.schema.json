@@ -3,17 +3,16 @@
   "$id": "https://github.com/mattlane66/opportunity-underwriting-for-agents-and-humans/market-opportunity-underwriting/schemas/input.schema.json",
   "title": "Market Opportunity Underwriting Input",
   "type": "object",
-  "required": ["schema_version", "idea", "target_customer", "problem_job", "geography", "decision", "decision_context", "input_provenance"],
+  "required": ["schema_version", "idea", "target_customer", "problem_job", "geography", "decision", "decision_context", "scrutiny_profile", "time_horizon_years", "input_provenance"],
   "properties": {
-    "schema_version": {"const": "0.1.0"},
+    "schema_version": {"const": "0.2.0"},
     "idea": {"type": "string", "minLength": 1},
     "target_customer": {"type": "string", "minLength": 1},
     "problem_job": {"type": "string", "minLength": 1},
     "geography": {"type": "string", "minLength": 1},
     "decision": {"type": "string", "minLength": 1},
-    "decision_context": {
-      "enum": ["napkin-stage", "prototype-pre-revenue", "early-revenue", "growth-stage", "corporate-market-entry", "investor-acquisition", "other"]
-    },
+    "decision_context": {"enum": ["napkin-stage", "prototype-pre-revenue", "early-revenue", "growth-stage", "corporate-market-entry", "investor-acquisition", "other"]},
+    "scrutiny_profile": {"enum": ["general", "venture-seed", "venture-early", "venture-growth", "growth-equity", "pe-commercial-diligence", "corporate"]},
     "business_model": {"type": ["string", "null"]},
     "price_hypothesis": {"type": ["string", "null"]},
     "beachhead": {"type": ["string", "null"]},
