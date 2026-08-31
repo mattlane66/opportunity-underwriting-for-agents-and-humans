@@ -26,6 +26,8 @@ The current underwriting state:
 
 Atomic load-bearing evidence and variables with stable IDs, values/ranges, epistemic state, demand tier where relevant, source/date, source lineage, dependencies, contradictions, and validation next step.
 
+For source-backed claims the ledger also records claim temporality, source directness, freshness-check time, contradiction evidence IDs, and conflict resolution/adjudication. Load-bearing current-product-state claims therefore preserve whether the evidence is primary or non-primary and how contradictory current first-party evidence was handled.
+
 ## `search-plan.json`
 
 The intended search lattice for decision-critical cruxes: support/refutation observations, source classes, synonym families, queries, and stop conditions.
