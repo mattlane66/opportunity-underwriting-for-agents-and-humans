@@ -93,6 +93,7 @@ A full run covers:
 - Never report a quantified market number that cannot be reproduced from the evidence ledger and deterministic calculation artifact.
 - Never issue a final PURSUE/REJECT recommendation without an explicit decision hurdle.
 - Never let a later-stage/PE scrutiny profile manufacture metrics that the company has not actually generated.
+- Never let stale or contradictory secondary/community evidence remain load-bearing for a current product/provider capability without a freshness check and explicit first-party source-precedence adjudication.
 <!-- PORTABLE:SKILL:END -->
 
 ## Decision-context branching

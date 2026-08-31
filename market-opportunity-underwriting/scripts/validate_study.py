@@ -105,6 +105,14 @@ def validate_ledger(data: Any, errors: list[str]) -> tuple[set[str], dict[str, d
             errors.append(f"{owner} used_by must be a list")
         if not isinstance(row.get("contradictions"), list):
             errors.append(f"{owner} contradictions must be a list")
+        if row.get("claim_temporality") not in {"CURRENT_PRODUCT_STATE", "TIME_SERIES", "HISTORICAL", "STRUCTURAL"}:
+            errors.append(f"{owner} has invalid claim_temporality")
+        if row.get("source_directness") not in {"PRIMARY", "SECONDARY", "COMMUNITY", "UNKNOWN"}:
+            errors.append(f"{owner} has invalid source_directness")
+        if not isinstance(row.get("contradiction_evidence_ids"), list):
+            errors.append(f"{owner} contradiction_evidence_ids must be a list")
+        if row.get("conflict_resolution") not in {"NONE", "PRIMARY_OVERRIDES", "SECONDARY_RETAINED_WITH_REASON", "UNRESOLVED"}:
+            errors.append(f"{owner} has invalid conflict_resolution")
         if state == "NOT_KNOWABLE_FROM_DESK_RESEARCH" and not nonempty(row.get("validation_next_step")):
             errors.append(f"{owner} NOT_KNOWABLE_FROM_DESK_RESEARCH requires validation_next_step")
 
@@ -119,6 +127,69 @@ def validate_ledger(data: Any, errors: list[str]) -> tuple[set[str], dict[str, d
         if state in {"ESTIMATED", "BOUNDED"} and row.get("load_bearing") is True:
             if not row.get("source_lineage_ids") and not nonempty(row.get("validation_next_step")):
                 errors.append(f"{owner} load-bearing {state} evidence requires source lineage(s) or a validation next step")
+
+        if row.get("load_bearing") is True and row.get("claim_temporality") == "CURRENT_PRODUCT_STATE":
+            if not nonempty(row.get("freshness_checked_at")):
+                errors.append(f"{owner} load-bearing CURRENT_PRODUCT_STATE evidence requires freshness_checked_at")
+            if row.get("source_directness") != "PRIMARY" and not nonempty(row.get("primary_source_unavailable_reason")):
+                # A contradictory primary source is handled in the second pass below. Until then,
+                # non-primary current-state evidence must explain why first-party evidence was unavailable.
+                contradiction_ids = row.get("contradiction_evidence_ids", [])
+                if not contradiction_ids:
+                    errors.append(
+                        f"{owner} non-primary CURRENT_PRODUCT_STATE evidence requires primary_source_unavailable_reason"
+                    )
+
+    # Current-state precedence is evaluated after all evidence IDs are known so contradictions
+    # can point forward or backward in the ledger.
+    for evidence_id, row in by_id.items():
+        owner = f"evidence-ledger {evidence_id}"
+        refs = row.get("contradiction_evidence_ids", [])
+        if not isinstance(refs, list):
+            continue
+        for ref in refs:
+            if ref not in by_id:
+                errors.append(f"{owner} references unknown contradiction evidence id {ref!r}")
+
+        if row.get("claim_temporality") != "CURRENT_PRODUCT_STATE" or row.get("source_directness") == "PRIMARY":
+            continue
+
+        opposing_ids = set(ref for ref in refs if ref in by_id)
+        opposing_ids.update(
+            other_id
+            for other_id, other in by_id.items()
+            if evidence_id in other.get("contradiction_evidence_ids", [])
+        )
+        primary_conflicts = [
+            other_id
+            for other_id in opposing_ids
+            if by_id[other_id].get("claim_temporality") == "CURRENT_PRODUCT_STATE"
+            and by_id[other_id].get("source_directness") == "PRIMARY"
+        ]
+
+        if primary_conflicts:
+            resolution = row.get("conflict_resolution")
+            if resolution == "NONE":
+                errors.append(
+                    f"{owner} stale-current-state corroboration: contradictory primary current-state evidence requires conflict_resolution"
+                )
+            if not nonempty(row.get("conflict_adjudication")):
+                errors.append(
+                    f"{owner} stale-current-state corroboration: contradictory primary current-state evidence requires conflict_adjudication"
+                )
+            if row.get("load_bearing") is True and resolution in {"PRIMARY_OVERRIDES", "UNRESOLVED", "NONE"}:
+                errors.append(
+                    f"{owner} stale-current-state corroboration: non-primary evidence cannot remain load-bearing when current primary evidence overrides or leaves the conflict unresolved"
+                )
+            if row.get("load_bearing") is True and resolution == "SECONDARY_RETAINED_WITH_REASON":
+                if not nonempty(row.get("primary_source_unavailable_reason")):
+                    errors.append(
+                        f"{owner} retained secondary current-state evidence requires an explicit primary_source_unavailable_reason/exception rationale"
+                    )
+        elif row.get("load_bearing") is True and not nonempty(row.get("primary_source_unavailable_reason")):
+            errors.append(
+                f"{owner} non-primary CURRENT_PRODUCT_STATE evidence requires primary_source_unavailable_reason"
+            )
 
     return ids, by_id
 

@@ -37,6 +37,18 @@ Prefer sources based on the fact being measured.
 
 A source can be authoritative yet still have the wrong definition. Record scope, geography, period, and unit.
 
+### Current product/provider capabilities
+
+When a crux depends on what a product or provider **currently** supports, route the search differently from a historical or structural claim:
+
+1. search current first-party documentation, release notes, pricing/product pages, or filings first;
+2. record the access/freshness-check date;
+3. use secondary/community sources for discovery, observed edge cases, adoption, sentiment, or implementation reality—not as automatic authority over current first-party capability;
+4. if a secondary/community claim conflicts with current primary evidence, preserve both evidence IDs and adjudicate the conflict;
+5. allow a non-primary claim to remain load-bearing only when there is an explicit reason the primary source is unavailable, incomplete, or not controlling for the narrower observed claim.
+
+Examples where secondary evidence may legitimately survive: a documented deployment-specific limitation, a reproducible bug, or observed behavior that the provider's nominal documentation does not cover. Narrow the retained claim accordingly.
+
 ## Reproducible search log
 
 For decision-critical searches record:
