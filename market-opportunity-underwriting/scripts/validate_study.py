@@ -690,6 +690,81 @@ def validate_state(
             errors.append("hurdle-free verdict: PURSUE/REJECT requires a DEFINED decision hurdle")
 
     if verdict.get("status") == "FINAL":
+        driver_ids = verdict.get("driver_ids")
+        if not isinstance(driver_ids, list) or not driver_ids:
+            errors.append("verdict-state inconsistency: final verdict requires at least one crux/fatal-gate driver_id")
+            driver_ids = []
+        valid_driver_ids = crux_ids | gate_ids
+        for driver_id in driver_ids:
+            if driver_id not in valid_driver_ids:
+                errors.append(f"verdict-state inconsistency: final verdict references unknown driver_id {driver_id!r}")
+
+        unresolved = [
+            cid for cid, crux in crux_by_id.items()
+            if crux.get("importance") in {"FATAL", "HIGH"} and crux.get("support_status") == "UNTESTED"
+        ]
+        if unresolved:
+            errors.append(
+                "verdict-state inconsistency: final verdict leaves FATAL/HIGH cruxes UNTESTED: "
+                + ", ".join(sorted(unresolved))
+            )
+
+        recommendation = verdict.get("recommendation")
+        if recommendation == "PURSUE":
+            unsupported_fatal_cruxes = [
+                cid for cid, crux in crux_by_id.items()
+                if crux.get("importance") == "FATAL" and crux.get("support_status") != "SUPPORTED"
+            ]
+            if unsupported_fatal_cruxes:
+                errors.append(
+                    "verdict-state inconsistency: PURSUE requires every FATAL crux to be SUPPORTED: "
+                    + ", ".join(sorted(unsupported_fatal_cruxes))
+                )
+
+            refuted_high_cruxes = [
+                cid for cid, crux in crux_by_id.items()
+                if crux.get("importance") == "HIGH" and crux.get("support_status") == "REFUTED"
+            ]
+            if refuted_high_cruxes:
+                errors.append(
+                    "verdict-state inconsistency: PURSUE cannot coexist with REFUTED HIGH cruxes: "
+                    + ", ".join(sorted(refuted_high_cruxes))
+                )
+
+            uncleared_gates = [
+                gate.get("id") for gate in gates
+                if isinstance(gate, dict) and gate.get("status") != "PASS"
+            ]
+            if uncleared_gates:
+                errors.append(
+                    "verdict-state inconsistency: PURSUE requires every declared fatal gate to PASS: "
+                    + ", ".join(sorted(str(gid) for gid in uncleared_gates if gid))
+                )
+
+        if recommendation == "TEST" and data.get("next_test", {}).get("status") != "DEFINED":
+            errors.append("verdict-state inconsistency: TEST requires a DEFINED highest-value next evidence/test")
+
+        if recommendation == "REJECT":
+            negative_driver = False
+            for driver_id in driver_ids:
+                if driver_id in crux_by_id and crux_by_id[driver_id].get("support_status") in {
+                    "WEAK", "REFUTED", "NOT_KNOWABLE_FROM_DESK_RESEARCH"
+                }:
+                    negative_driver = True
+                for gate in gates:
+                    if isinstance(gate, dict) and gate.get("id") == driver_id and gate.get("status") in {"FAIL", "UNKNOWN"}:
+                        negative_driver = True
+            if driver_ids and not negative_driver:
+                errors.append(
+                    "verdict-state inconsistency: REJECT must be driven by at least one weak/refuted/unknown crux or failed/unknown fatal gate"
+                )
+
+        if data.get("next_test", {}).get("status") == "UNSET":
+            errors.append(
+                "verdict-state inconsistency: final verdict must define the highest-value next evidence or mark it NOT_NEEDED"
+            )
+
+        
         unassessed_checks = [
             row.get("key") for row in scrutiny_checks
             if isinstance(row, dict) and row.get("status") == "UNASSESSED"
