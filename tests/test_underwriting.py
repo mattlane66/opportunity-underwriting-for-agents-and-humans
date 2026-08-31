@@ -501,11 +501,69 @@ class UnderwritingContractTests(unittest.TestCase):
         result = run(str(VALIDATE), str(root))
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
+    def test_A19_verdict_state_inconsistency(self):
+        td, root = self.new_workspace(); self.addCleanup(td.cleanup)
+        self.seed_cruxes(root)
+        state = load(root / "research-state.json")
+        state["decision_hurdle"]["status"] = "DEFINED"
+        state["decision_hurdle"]["required_outcome"] = "Evidence supports committing to the bounded prototype."
+        state["conditional_modules"]["reference_class"]["considered"] = True
+        state["falsification"]["status"] = "COMPLETE"
+        state["verdict"] = {
+            "status": "FINAL",
+            "recommendation": "PURSUE",
+            "summary": "Proceed.",
+            "confidence": "MEDIUM",
+            "driver_ids": ["C01"],
+        }
+        state["next_test"]["status"] = "NOT_NEEDED"
+        save(root / "research-state.json", state)
+        self.assert_invalid(root, "verdict-state inconsistency")
+
+    def test_final_verdict_requires_known_driver_id(self):
+        td, root = self.new_workspace(); self.addCleanup(td.cleanup)
+        self.seed_cruxes(root)
+        state = load(root / "research-state.json")
+        for crux in state["cruxes"]:
+            crux["support_status"] = "SUPPORTED"
+        state["decision_hurdle"]["status"] = "DEFINED"
+        state["conditional_modules"]["reference_class"]["considered"] = True
+        state["falsification"]["status"] = "COMPLETE"
+        state["verdict"] = {
+            "status": "FINAL",
+            "recommendation": "HOLD",
+            "summary": "Hold.",
+            "confidence": "MEDIUM",
+            "driver_ids": ["C99"],
+        }
+        state["next_test"]["status"] = "NOT_NEEDED"
+        save(root / "research-state.json", state)
+        self.assert_invalid(root, "unknown driver_id")
+
+    def test_TEST_requires_defined_next_evidence(self):
+        td, root = self.new_workspace(); self.addCleanup(td.cleanup)
+        self.seed_cruxes(root)
+        state = load(root / "research-state.json")
+        for crux in state["cruxes"]:
+            crux["support_status"] = "SUPPORTED"
+        state["conditional_modules"]["reference_class"]["considered"] = True
+        state["falsification"]["status"] = "COMPLETE"
+        state["verdict"] = {
+            "status": "FINAL",
+            "recommendation": "TEST",
+            "summary": "Test.",
+            "confidence": "MEDIUM",
+            "driver_ids": ["C01"],
+        }
+        state["next_test"]["status"] = "NOT_NEEDED"
+        save(root / "research-state.json", state)
+        self.assert_invalid(root, "TEST requires a DEFINED")
+
     def test_assurance_catalog_contains_v02_cases(self):
         payload = load(REPO / "evals" / "assurance-cases.json")
         cases = payload["cases"]
-        self.assertGreaterEqual(len(cases), 18)
-        self.assertEqual({c["id"] for c in cases[:18]}, {f"A{i:02d}" for i in range(1, 19)})
+        self.assertGreaterEqual(len(cases), 19)
+        self.assertEqual({c["id"] for c in cases[:19]}, {f"A{i:02d}" for i in range(1, 20)})
 
     def test_json_schemas_are_v02_and_valid_json(self):
         for path in (SKILL / "schemas").glob("*.json"):
