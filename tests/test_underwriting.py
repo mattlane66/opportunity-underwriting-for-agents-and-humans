@@ -57,6 +57,13 @@ def evidence(
         "accessed_at": "2026-08-31",
         "effective_period": "2026",
         "source_type": "test fixture",
+        "claim_temporality": "STRUCTURAL",
+        "source_directness": "PRIMARY",
+        "freshness_checked_at": "2026-08-31",
+        "primary_source_unavailable_reason": None,
+        "contradiction_evidence_ids": [],
+        "conflict_resolution": "NONE",
+        "conflict_adjudication": None,
         "confidence": "HIGH",
         "load_bearing": load_bearing,
         "fatal_gate_related": False,
@@ -258,7 +265,10 @@ class UnderwritingContractTests(unittest.TestCase):
             "unit": "USD/customer", "epistemic_state": "NOT_KNOWABLE_FROM_DESK_RESEARCH",
             "source": None, "source_id": None, "lineage_id": None, "origin_source_id": None,
             "source_lineage_ids": [], "source_date": None, "accessed_at": None, "effective_period": None,
-            "source_type": None, "confidence": "NOT_APPLICABLE", "load_bearing": True,
+            "source_type": None, "claim_temporality": "STRUCTURAL", "source_directness": "UNKNOWN",
+            "freshness_checked_at": None, "primary_source_unavailable_reason": None,
+            "contradiction_evidence_ids": [], "conflict_resolution": "NONE", "conflict_adjudication": None,
+            "confidence": "NOT_APPLICABLE", "load_bearing": True,
             "fatal_gate_related": True, "demand_tier": None, "used_by": ["unit_economics"],
             "contradictions": [], "validation_next_step": "Run a bounded paid-acquisition test", "notes": None
         })
@@ -428,11 +438,74 @@ class UnderwritingContractTests(unittest.TestCase):
         save(root / "research-state.json", state)
         self.assert_invalid(root, "institutional scrutiny theater")
 
+    def test_A18_stale_current_state_corroboration(self):
+        td, root = self.new_workspace(); self.addCleanup(td.cleanup)
+        ledger = load(root / "evidence-ledger.json")
+
+        secondary = evidence("E001", "Provider does not support cross-provider memory import", True, lineage="L-secondary")
+        secondary.update({
+            "claim_temporality": "CURRENT_PRODUCT_STATE",
+            "source_directness": "SECONDARY",
+            "freshness_checked_at": "2026-08-31",
+            "primary_source_unavailable_reason": None,
+            "contradiction_evidence_ids": ["E002"],
+            "conflict_resolution": "PRIMARY_OVERRIDES",
+            "conflict_adjudication": "Current official provider documentation supersedes the secondary claim.",
+            "load_bearing": True,
+        })
+
+        primary = evidence("E002", "Provider supports importing memory from other AI providers", True, lineage="L-primary", load_bearing=False)
+        primary.update({
+            "claim_temporality": "CURRENT_PRODUCT_STATE",
+            "source_directness": "PRIMARY",
+            "freshness_checked_at": "2026-08-31",
+            "contradiction_evidence_ids": ["E001"],
+            "conflict_resolution": "NONE",
+            "conflict_adjudication": None,
+        })
+
+        ledger["entries"] = [secondary, primary]
+        save(root / "evidence-ledger.json", ledger)
+        self.sync_burden(root)
+        self.assert_invalid(root, "stale-current-state corroboration")
+
+    def test_current_state_secondary_can_be_retained_only_with_explicit_exception(self):
+        td, root = self.new_workspace(); self.addCleanup(td.cleanup)
+        ledger = load(root / "evidence-ledger.json")
+
+        secondary = evidence("E001", "Observed behavior differs from provider documentation in this deployment", True, lineage="L-secondary")
+        secondary.update({
+            "claim_temporality": "CURRENT_PRODUCT_STATE",
+            "source_directness": "SECONDARY",
+            "freshness_checked_at": "2026-08-31",
+            "primary_source_unavailable_reason": "Official documentation describes nominal capability but not the observed deployment-specific limitation.",
+            "contradiction_evidence_ids": ["E002"],
+            "conflict_resolution": "SECONDARY_RETAINED_WITH_REASON",
+            "conflict_adjudication": "Retain only for the deployment-specific observed limitation; do not generalize against the official product capability.",
+            "load_bearing": True,
+        })
+
+        primary = evidence("E002", "Official documentation states the feature is supported", True, lineage="L-primary", load_bearing=False)
+        primary.update({
+            "claim_temporality": "CURRENT_PRODUCT_STATE",
+            "source_directness": "PRIMARY",
+            "freshness_checked_at": "2026-08-31",
+            "contradiction_evidence_ids": ["E001"],
+            "conflict_resolution": "NONE",
+            "conflict_adjudication": None,
+        })
+
+        ledger["entries"] = [secondary, primary]
+        save(root / "evidence-ledger.json", ledger)
+        self.sync_burden(root)
+        result = run(str(VALIDATE), str(root))
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
     def test_assurance_catalog_contains_v02_cases(self):
         payload = load(REPO / "evals" / "assurance-cases.json")
         cases = payload["cases"]
-        self.assertGreaterEqual(len(cases), 17)
-        self.assertEqual({c["id"] for c in cases[:17]}, {f"A{i:02d}" for i in range(1, 18)})
+        self.assertGreaterEqual(len(cases), 18)
+        self.assertEqual({c["id"] for c in cases[:18]}, {f"A{i:02d}" for i in range(1, 19)})
 
     def test_json_schemas_are_v02_and_valid_json(self):
         for path in (SKILL / "schemas").glob("*.json"):
