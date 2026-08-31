@@ -210,12 +210,13 @@
     },
     "verdict": {
       "type": "object",
-      "required": ["status", "recommendation", "summary", "confidence"],
+      "required": ["status", "recommendation", "summary", "confidence", "driver_ids"],
       "properties": {
         "status": {"enum": ["UNSET", "DRAFT", "FINAL"]},
         "recommendation": {"enum": ["PURSUE", "TEST", "HOLD", "REJECT", null]},
         "summary": {"type": "string"},
-        "confidence": {"enum": ["HIGH", "MEDIUM", "LOW", null]}
+        "confidence": {"enum": ["HIGH", "MEDIUM", "LOW", null]},
+        "driver_ids": {"type": "array", "items": {"type": "string", "pattern": "^[CF][0-9]{2,}$"}}
       },
       "additionalProperties": false
     },
