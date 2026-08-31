@@ -479,9 +479,22 @@ Use one recommendation:
 
 The recommendation must be relative to the user's actual decision threshold, not a generic startup score.
 
+### Verdict-state coherence
+
+A final verdict is a derived conclusion from the resolved state, not an independent narrative opinion.
+
+- record at least one `driver_id` pointing to a load-bearing crux or fatal gate;
+- no FATAL/HIGH crux may remain merely `UNTESTED`;
+- `PURSUE` requires every FATAL crux to be `SUPPORTED` and every declared fatal gate to `PASS`; it cannot coexist with a `REFUTED` HIGH crux;
+- `TEST` requires a defined highest-value next evidence/test;
+- `REJECT` must be anchored to at least one weak/refuted/not-knowable driver crux or failed/unknown fatal gate;
+- every final verdict must either define the highest-value next evidence or explicitly mark that none is needed.
+
+These rules apply to the **stated decision**. A project can be `PURSUE` for a bounded prototype while remaining not underwritable for a broad launch if the cruxes/gates are defined at the correct commitment level.
+
 A valid terminal statement is:
 
-> We cannot yet underwrite this market. We have established X and Y, but Z is the load-bearing unknown. Here is the cheapest evidence that would change the decision.
+> We cannot yet underwrite this market. We have established X and Y, but Z is the load-bearing unknown. Here is the highest-value evidence that would change the decision.
 <!-- PORTABLE:PROTOCOL:END -->
 
 ## 16. File-backed state progression
