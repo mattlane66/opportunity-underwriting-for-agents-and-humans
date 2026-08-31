@@ -5,7 +5,7 @@
   "type": "object",
   "required": [
     "schema_version", "phase", "status", "decision_context", "context_profile", "scrutiny_profile",
-    "decision_hurdle", "market_definition", "cruxes", "research_queue", "fatal_gates", "gap", "demand",
+    "decision_hurdle", "scrutiny_checks", "market_definition", "cruxes", "research_queue", "fatal_gates", "gap", "demand",
     "sizing", "reachability", "conditional_modules", "falsification", "evidence_burden", "verdict",
     "next_test", "notes"
   ],
@@ -44,6 +44,20 @@
         "notes": {"type": "array", "items": {"type": "string"}}
       },
       "additionalProperties": false
+    },
+    "scrutiny_checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["key", "status", "evidence_ids", "reasoning"],
+        "properties": {
+          "key": {"type": "string", "minLength": 1},
+          "status": {"enum": ["UNASSESSED", "EVIDENCED", "UNKNOWN", "NOT_APPLICABLE", "OUTSIDE_SCOPE"]},
+          "evidence_ids": {"type": "array", "items": {"type": "string"}},
+          "reasoning": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
     },
     "market_definition": {
       "type": "object",

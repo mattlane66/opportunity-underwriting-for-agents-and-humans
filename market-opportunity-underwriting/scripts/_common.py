@@ -43,22 +43,27 @@ SCRUTINY_PROFILES = {
     "general": {
         "focus": "Core market-opportunity protocol with explicit uncertainty and decision hurdle.",
         "adjacent_diligence": [],
+        "required_checks": [],
     },
     "venture-seed": {
         "focus": "Problem burden, budget/WTP evidence, bottom-up market bounds, why-now, early distribution, fatal unknowns.",
         "adjacent_diligence": [],
+        "required_checks": ["problem_burden", "budget_wtp", "bottom_up_market", "why_now", "plausible_distribution"],
     },
     "venture-early": {
         "focus": "Repeatable buyer/use case, pipeline quality, sales cycle, implementation effort, actual price, early retention and unit economics.",
         "adjacent_diligence": [],
+        "required_checks": ["repeatable_buyer_use_case", "pipeline_quality", "sales_cycle", "implementation_effort", "actual_price", "retention_if_observable", "unit_economics_if_observable"],
     },
     "venture-growth": {
         "focus": "Cohort retention, standardized growth and margin metrics, CAC/payback, concentration, expansion, penetration and channel saturation.",
         "adjacent_diligence": [],
+        "required_checks": ["cohort_retention", "growth_by_segment", "gross_margin", "cac_payback", "customer_concentration", "expansion_vs_new_logo", "market_penetration", "channel_saturation"],
     },
     "growth-equity": {
         "focus": "Durability, marginal unit economics, segment quality, pricing power, concentration, cash-generation path, and downside.",
         "adjacent_diligence": ["financial diligence", "legal/tax diligence as applicable"],
+        "required_checks": ["growth_durability", "marginal_unit_economics", "segment_quality", "pricing_power", "customer_concentration", "cash_generation_path", "addressable_runway", "downside_case"],
     },
     "pe-commercial-diligence": {
         "focus": "Market growth/share, customer concentration/retention, pricing and win-loss, competitive position, commercial margins/cash conversion, value creation, and cleansheet downside.",
@@ -69,10 +74,12 @@ SCRUTINY_PROFILES = {
             "management / governance",
             "financing / debt capacity",
         ],
+        "required_checks": ["market_growth_cyclicality", "market_share_movement", "customer_concentration", "cohort_retention", "pricing_discounting_elasticity", "win_loss_switching", "channel_economics", "competitive_right_to_win", "organic_growth_quality", "margin_cash_conversion", "value_creation_evidence", "cleansheet_downside"],
     },
     "corporate": {
         "focus": "Strategic fit, channel leverage, capability gaps, cannibalization, build/buy/partner alternatives, investment hurdle, and time to contribution.",
         "adjacent_diligence": [],
+        "required_checks": ["strategic_fit", "channel_leverage", "capability_gaps", "cannibalization", "build_buy_partner", "investment_hurdle", "time_to_contribution"],
     },
 }
 
@@ -181,6 +188,10 @@ def make_state(
             "focus": scrutiny["focus"],
             "adjacent_diligence": scrutiny["adjacent_diligence"],
         },
+        "scrutiny_checks": [
+            {"key": key, "status": "UNASSESSED", "evidence_ids": [], "reasoning": ""}
+            for key in scrutiny["required_checks"]
+        ],
         "decision_hurdle": {
             "status": hurdle_status,
             "required_outcome": hurdle_outcome,

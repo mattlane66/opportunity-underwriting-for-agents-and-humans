@@ -69,6 +69,8 @@ Read [`references/investor-scrutiny.md`](references/investor-scrutiny.md) when a
 
 The governing rule is **stage-appropriate rigor**. A seed study may legitimately report CAC and retention as `NOT_KNOWABLE_FROM_DESK_RESEARCH`; a growth or acquisition study should use actual cohort/financial/commercial evidence when it exists. Do not make an early-stage report imitate later-stage diligence by filling missing metrics with benchmarks.
 
+Each non-general scrutiny profile has an explicit commercial-review checklist in persisted state. Before a final verdict, every required check must be marked `EVIDENCED`, `UNKNOWN`, `NOT_APPLICABLE`, or `OUTSIDE_SCOPE` with reasoning and evidence links where available. `UNKNOWN` is acceptable; silently leaving a required review lane unassessed is not.
+
 For PE/acquisition work, this skill covers commercial/market underwriting only. Explicitly disclose adjacent accounting/QoE, legal/tax, technical/operational, management/governance, financing, or other diligence still required.
 
 ## 3. Epistemic state is first-class

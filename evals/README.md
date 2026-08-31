@@ -21,6 +21,7 @@ v0.2 covers:
 13. economic-burden/WTP conflation;
 14. hurdle-free final verdicts;
 15. stale/non-reproducible market math;
-16. hidden structural/model uncertainty.
+16. hidden structural/model uncertainty;
+17. institutional scrutiny theater.
 
 Future runtime evaluations should also score the **artifacts an agent actually writes**: search plans/logs, evidence lineage, crux updates after contrary evidence, calculation reproducibility, and whether the institutional scrutiny profile is applied without fabricating unavailable metrics.

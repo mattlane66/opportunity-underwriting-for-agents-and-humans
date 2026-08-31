@@ -307,6 +307,29 @@ def validate_state(
         if inputs.get("scrutiny_profile") != scrutiny_name:
             errors.append("input and research-state scrutiny_profile disagree")
 
+    scrutiny_checks = data.get("scrutiny_checks")
+    if not isinstance(scrutiny_checks, list):
+        errors.append("scrutiny_checks must be a list")
+        scrutiny_checks = []
+    expected_check_keys = set(SCRUTINY_PROFILES.get(scrutiny_name, {}).get("required_checks", []))
+    actual_check_keys: set[str] = set()
+    for i, row in enumerate(scrutiny_checks):
+        if not isinstance(row, dict):
+            errors.append(f"scrutiny_checks[{i}] must be an object")
+            continue
+        key = row.get("key")
+        if not isinstance(key, str) or not key or key in actual_check_keys:
+            errors.append(f"scrutiny_checks[{i}] has invalid/duplicate key")
+        else:
+            actual_check_keys.add(key)
+        if row.get("status") not in {"UNASSESSED", "EVIDENCED", "UNKNOWN", "NOT_APPLICABLE", "OUTSIDE_SCOPE"}:
+            errors.append(f"scrutiny_checks[{i}] has invalid status")
+        check_evidence_refs(row.get("evidence_ids", []), evidence_ids, f"scrutiny_checks[{i}].evidence_ids", errors)
+        if row.get("status") != "UNASSESSED" and not nonempty(row.get("reasoning")):
+            errors.append(f"scrutiny_checks[{i}] assessed status requires reasoning")
+    if actual_check_keys != expected_check_keys:
+        errors.append("scrutiny coverage drift: required institutional review checks do not match scrutiny profile")
+
     hurdle = data.get("decision_hurdle")
     if not isinstance(hurdle, dict) or hurdle.get("status") not in {"PROVISIONAL", "DEFINED"}:
         errors.append("decision hurdle must be PROVISIONAL or DEFINED")
@@ -594,6 +617,17 @@ def validate_state(
     if verdict.get("status") == "FINAL" and verdict.get("recommendation") in {"PURSUE", "REJECT"}:
         if not isinstance(hurdle, dict) or hurdle.get("status") != "DEFINED":
             errors.append("hurdle-free verdict: PURSUE/REJECT requires a DEFINED decision hurdle")
+
+    if verdict.get("status") == "FINAL":
+        unassessed_checks = [
+            row.get("key") for row in scrutiny_checks
+            if isinstance(row, dict) and row.get("status") == "UNASSESSED"
+        ]
+        if unassessed_checks:
+            errors.append(
+                "institutional scrutiny theater: final verdict leaves required scrutiny checks UNASSESSED: "
+                + ", ".join(unassessed_checks)
+            )
 
     if scrutiny_name == "pe-commercial-diligence" and verdict.get("status") == "FINAL":
         if not scrutiny.get("adjacent_diligence"):

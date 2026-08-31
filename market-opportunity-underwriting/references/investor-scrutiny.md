@@ -104,6 +104,19 @@ Emphasize:
 - time to economic contribution;
 - organizational constraints.
 
+## Persisted scrutiny coverage
+
+For any non-general scrutiny profile, the workspace creates a required commercial-review checklist. Each item must end in one of:
+
+- `EVIDENCED` — supported by inspectable evidence;
+- `UNKNOWN` — decision-relevant but not currently knowable from available evidence;
+- `NOT_APPLICABLE` — genuinely irrelevant to this business/decision;
+- `OUTSIDE_SCOPE` — belongs to an adjacent diligence lane rather than this commercial method.
+
+Every non-`UNASSESSED` status requires reasoning; `EVIDENCED` should link evidence IDs. A final verdict cannot leave required scrutiny checks `UNASSESSED`.
+
+This is deliberately stricter than forcing a numeric benchmark. The system must surface missing evidence rather than fabricate stage-appropriate-looking metrics.
+
 ## Investment-committee challenge standard
 
 Before a final `PURSUE` recommendation, a skeptical reviewer should be able to answer:

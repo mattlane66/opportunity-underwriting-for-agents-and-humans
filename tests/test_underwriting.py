@@ -69,7 +69,7 @@ def evidence(
 
 
 class UnderwritingContractTests(unittest.TestCase):
-    def new_workspace(self) -> tuple[tempfile.TemporaryDirectory[str], Path]:
+    def new_workspace(self, scrutiny_profile: str = "general") -> tuple[tempfile.TemporaryDirectory[str], Path]:
         td = tempfile.TemporaryDirectory()
         root = Path(td.name) / "study"
         result = run(
@@ -81,7 +81,7 @@ class UnderwritingContractTests(unittest.TestCase):
             "--geography", "United States",
             "--decision", "Should we build this?",
             "--context", "napkin-stage",
-            "--scrutiny-profile", "general",
+            "--scrutiny-profile", scrutiny_profile,
         )
         self.assertEqual(result.returncode, 0, result.stderr)
         return td, root
@@ -420,11 +420,19 @@ class UnderwritingContractTests(unittest.TestCase):
         save(root / "research-state.json", state)
         self.assert_invalid(root, "structural uncertainty")
 
+
+    def test_A17_institutional_scrutiny_theater(self):
+        td, root = self.new_workspace("venture-growth"); self.addCleanup(td.cleanup)
+        state = load(root / "research-state.json")
+        state["verdict"] = {"status": "FINAL", "recommendation": "TEST", "summary": "Test", "confidence": "LOW"}
+        save(root / "research-state.json", state)
+        self.assert_invalid(root, "institutional scrutiny theater")
+
     def test_assurance_catalog_contains_v02_cases(self):
         payload = load(REPO / "evals" / "assurance-cases.json")
         cases = payload["cases"]
-        self.assertGreaterEqual(len(cases), 16)
-        self.assertEqual({c["id"] for c in cases[:16]}, {f"A{i:02d}" for i in range(1, 17)})
+        self.assertGreaterEqual(len(cases), 17)
+        self.assertEqual({c["id"] for c in cases[:17]}, {f"A{i:02d}" for i in range(1, 18)})
 
     def test_json_schemas_are_v02_and_valid_json(self):
         for path in (SKILL / "schemas").glob("*.json"):

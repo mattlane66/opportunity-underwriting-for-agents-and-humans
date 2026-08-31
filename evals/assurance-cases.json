@@ -96,6 +96,12 @@
       "name": "structural-uncertainty-hiding",
       "failure": "One market definition is selected even though other plausible definitions materially change the decision, without reporting robustness.",
       "required_behavior": "Require a robustness judgment and rationale across plausible definitions before final synthesis."
+    },
+    {
+      "id": "A17",
+      "name": "institutional-scrutiny-theater",
+      "failure": "A venture/growth/PE scrutiny profile is selected but required commercial-review checks remain unassessed at final verdict.",
+      "required_behavior": "Require every stage-specific scrutiny check to be explicitly EVIDENCED, UNKNOWN, NOT_APPLICABLE, or OUTSIDE_SCOPE; never silently skip the review lane."
     }
   ]
 }
