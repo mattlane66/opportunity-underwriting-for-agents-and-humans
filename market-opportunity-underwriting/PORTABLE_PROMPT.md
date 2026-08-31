@@ -2,7 +2,7 @@
 
 > **GENERATED FILE.** Canonical source: `SKILL.md`, `PROTOCOL.md`, and `templates/research-brief.md`. Run `scripts/generate_portable_prompt.py` to regenerate.
 
-Use the following as your operating instructions for this research session. When file persistence is unavailable, end each stage with a cumulative state packet containing the decision, context, cruxes, fatal gates, market definition, evidence ledger, sizing state, unknowns, falsification state, and next test. Treat the latest packet as the authoritative replacement snapshot when resuming.
+Use the following as your operating instructions for this research session. When file persistence is unavailable, end each stage with a cumulative state packet containing the decision hurdle, scrutiny profile, context, cruxes, research priorities, fatal gates, market definitions, evidence/source lineages, sizing/calculation state, unknowns, falsification coverage, and highest-value next evidence. Treat the latest packet as the authoritative replacement snapshot when resuming.
 
 ## Governing rule
 
@@ -16,19 +16,19 @@ Never manufacture a number because an output template asks for one. `NOT_KNOWABL
 
 Execute the method as a staged, crux-first investigation:
 
-0. **Classify the decision and maturity context.**
-1. **Identify the 2–3 load-bearing cruxes.** Ask: what must be true for this opportunity to be attractive, and which crux is least supported?
+0. **Classify the decision, maturity context, institutional scrutiny profile, and decision hurdle.** A market is only "large enough" relative to a required outcome and time horizon.
+1. **Identify the 2–3 load-bearing cruxes and create the research queue.** Ask what must be true, which crux is least supported, and which evidence move has the highest decision value.
 2. **Attack possible fatal gates first.** If one fails, stop ceremonial downstream analysis unless additional evidence could realistically change it.
-3. **Establish the market.** Determine whether the gap is real and whether credible economic demand exists.
-4. **Size only what is supportable.** Build bottom-up TAM, apply real SAM constraints, and add at least one independent cross-check. Do not force SOM when reach/conversion/retention inputs are unknown.
-5. **Underwrite adoption, growth, pricing, competition, and unit economics conditionally.** Run only modules that are decision-relevant and sufficiently evidenced.
-6. **Run adversarial research, reconcile contradictions, and synthesize the decision.** End with the cheapest discriminating test for the most important unresolved uncertainty.
+3. **Establish the market.** Separate evidence for problem economic burden, budget availability, solution willingness to pay, and behavioral adoption; do not collapse them into one demand score.
+4. **Size only what is supportable.** Build bottom-up TAM, apply real SAM constraints, and add at least one genuinely independent cross-check. Preserve plausible alternative market definitions when they matter.
+5. **Underwrite reachability, adoption, growth, pricing, competition, and unit economics conditionally.** Run only modules that are decision-relevant and sufficiently evidenced; consider the outside-view reference class in every full study.
+6. **Run crux-by-crux adversarial research, reconcile contradictions, and synthesize the decision.** End with the highest-value next evidence for the most important unresolved uncertainty.
 
 Research should proceed:
 
-`discovery → structured evidence/state → adversarial pass → synthesis`
+`decision hurdle → crux graph → VOI-ranked evidence queue → search plan/log → structured evidence + lineage → deterministic calculations → adversarial adjudication → synthesis`
 
-Do not draft the polished investment thesis while evidence discovery is still open.
+Do not draft the polished investment thesis while evidence discovery is still open. Persist exact decision-critical searches and source lineages so another reviewer can see how evidence was found and whether corroboration is genuinely independent.
 
 ## Epistemic states
 
@@ -54,13 +54,14 @@ A full run covers:
 2. market definition;
 3. crux assumptions and possible fatal gates;
 4. evidence the problem/gap exists;
-5. evidence of economic demand;
-6. bottom-up market construction;
-7. at least one independent sizing cross-check;
+5. separate problem-burden, budget, solution-WTP, and adoption evidence;
+6. bottom-up market construction backed by deterministic calculation artifacts;
+7. at least one sizing cross-check independent in method and evidence lineage;
 8. reachability/SOM logic, quantified only where supportable;
-9. adversarial/falsification research;
-10. evidence ledger and uncertainty;
-11. verdict and next cheapest discriminating test.
+9. reproducible search plan/log plus source lineage;
+10. adversarial/falsification coverage for every FATAL/HIGH crux;
+11. evidence ledger, structural/model uncertainty, and decision robustness;
+12. verdict and highest-value next evidence.
 
 ## Hard prohibitions
 
@@ -72,7 +73,12 @@ A full run covers:
 - Never continue mechanically after a fatal gate fails merely to complete the template.
 - Never apply one maturity-stage evidence standard to all decision contexts.
 - Never report CAGR without its market definition, geography, start/end years, currency, and real-vs-nominal treatment.
-- Never omit a meaningful falsification/query-inversion pass.
+- Never omit a meaningful falsification/query-inversion pass for any FATAL/HIGH crux.
+- Never call workaround spend proof that customers will buy the proposed solution; economic burden and solution WTP are separate judgments.
+- Never count multiple secondary pages repeating one upstream statistic as independent corroboration.
+- Never report a quantified market number that cannot be reproduced from the evidence ledger and deterministic calculation artifact.
+- Never issue a final PURSUE/REJECT recommendation without an explicit decision hurdle.
+- Never let a later-stage/PE scrutiny profile manufacture metrics that the company has not actually generated.
 
 ---
 
@@ -80,13 +86,17 @@ A full run covers:
 
 Do not research every section evenly.
 
-At the beginning of the study identify the **2–3 load-bearing cruxes**:
+At the beginning of the study first state the **decision hurdle**: the minimum economic outcome, time horizon, and material capital/commitment constraints that would make the opportunity worth pursuing. A market is not "large" in the abstract.
 
-> What must be true for this opportunity to be attractive?
+Then identify the **2–3 load-bearing cruxes**:
+
+> What must be true for this opportunity to clear that hurdle?
 
 Then ask:
 
-> Which of those cruxes is least supported and most decision-sensitive?
+> Which crux is least supported, most decision-sensitive, and most tractable to investigate?
+
+Persist those questions in the research queue. Use the ordinal Value-of-Information rules in [`references/value-of-information.md`](references/value-of-information.md) so crux-first reasoning determines the next evidence move rather than merely the report order.
 
 Allocate research depth to that uncertainty first.
 
@@ -109,6 +119,26 @@ Classify the opportunity before judging it.
 | `other` | Explicitly define the governing decision standard | What evidence is actually decision-relevant? |
 
 Do not require observed CAC from a napkin-stage idea. Do not accept interview enthusiasm as sufficient evidence for a growth-stage acquisition.
+
+## 2A. Institutional scrutiny profile
+
+Decision context describes the company's maturity and the kind of decision. The **scrutiny profile** describes the review standard the output must survive.
+
+Use one of:
+
+- `general`
+- `venture-seed`
+- `venture-early`
+- `venture-growth`
+- `growth-equity`
+- `pe-commercial-diligence`
+- `corporate`
+
+Read [`references/investor-scrutiny.md`](references/investor-scrutiny.md) when a capital-stage review profile is selected.
+
+The governing rule is **stage-appropriate rigor**. A seed study may legitimately report CAC and retention as `NOT_KNOWABLE_FROM_DESK_RESEARCH`; a growth or acquisition study should use actual cohort/financial/commercial evidence when it exists. Do not make an early-stage report imitate later-stage diligence by filling missing metrics with benchmarks.
+
+For PE/acquisition work, this skill covers commercial/market underwriting only. Explicitly disclose adjacent accounting/QoE, legal/tax, technical/operational, management/governance, financing, or other diligence still required.
 
 ## 3. Epistemic state is first-class
 
@@ -164,6 +194,19 @@ State the measurement unit. Do not mix customers, transactions, GMV, supplier re
 
 When multiple market definitions are legitimate, model 2–3 candidate definitions briefly and choose the definition most relevant to the decision. Record how the choice affects the result.
 
+## 4A. Preserve structural/model uncertainty
+
+Parameter ranges are not the only uncertainty. When 2–3 plausible market definitions or model structures could materially change the answer, preserve them long enough to test **decision robustness**.
+
+Record:
+
+- candidate definition/model;
+- why it is plausible;
+- which one is selected and why;
+- whether the verdict is `ROBUST` or `SENSITIVE` across plausible alternatives.
+
+Do not hide a structurally fragile conclusion inside a narrow numeric confidence interval.
+
 ## 5. Establish whether the gap is real
 
 Absence of competitors is not evidence of an opportunity.
@@ -196,7 +239,25 @@ The analysis must consider both classes of explanation.
 
 ## 6. Establish whether there is a market in the gap
 
-Use this evidence hierarchy.
+Do **not** reduce demand evidence to one scalar ladder. Separate at least four questions:
+
+### Problem economic burden
+Is the problem consequential enough that customers already incur meaningful money, labor, risk, delay, or opportunity cost?
+
+### Budget availability
+Is there an identifiable buyer, budget source, procurement path, or reallocatable spend?
+
+### Solution willingness to pay
+What evidence indicates buyers will transfer money or budget to this proposed value proposition at a realistic price?
+
+### Behavioral adoption
+What evidence indicates users will switch, implement, repeatedly use, retain, or otherwise change behavior enough for the solution to create value?
+
+Reachability is assessed separately in the SOM/reachability model.
+
+For each dimension record `STRONG | MODERATE | WEAK | UNKNOWN | NOT_APPLICABLE`, evidence IDs, and reasoning.
+
+Use the A–F tiers below to describe **evidence proximity/type**, not as permission to collapse the dimensions:
 
 ### Tier A — Transactional evidence
 
@@ -215,6 +276,8 @@ Use this evidence hierarchy.
 - manual labor;
 - workaround software stacks;
 - measurable cost or risk from the problem.
+
+Tier B can strongly support **problem economic burden**. It does not by itself establish **solution WTP**.
 
 ### Tier C — Behavioral demand
 
@@ -248,11 +311,17 @@ Use this evidence hierarchy.
 
 Tier E and F may support discovery or interpretation. They do **not** by themselves establish economic demand.
 
-The research record must answer:
+The research record must answer separately:
 
-> If this solution existed tomorrow at a realistic price, what credible evidence indicates that customers would actually change behavior and transfer money or budget toward it?
+> How economically costly is the problem today?
 
-If the answer is weak, say so.
+> Where would the budget come from?
+
+> What credible evidence indicates the buyer would pay for this solution?
+
+> What credible evidence indicates users would actually adopt it?
+
+If any answer is weak or unknowable, say so.
 
 ## 7. Keep three economic pools separate
 
@@ -282,9 +351,9 @@ Use an observable unit model appropriate to the business:
 - usage-based: eligible customers × usage × revenue per unit;
 - services: eligible customers × frequency × contract value.
 
-For every major input record source, date, unit, epistemic state, confidence, and range where relevant.
+For every major input record source, date, unit, epistemic state, confidence, range, source lineage, and deterministic calculation dependency where relevant.
 
-Do not double-count overlapping populations or spending pools.
+Do not double-count overlapping populations or spending pools. Quantified TAM/SAM should point to `calculations.json`; the agent chooses and defends the model and inputs, while deterministic code performs the arithmetic.
 
 ## 9. Require an independent sizing cross-check
 
@@ -302,6 +371,8 @@ Estimate economic value lost/created × addressable share × plausible monetizat
 Use comparable market outcomes as an outside-view constraint when defensible analogs exist.
 
 Do not average conflicting methods mechanically. Explain definition differences and reconcile them.
+
+A cross-check must be independent in more than URL. Record its input evidence IDs and evidence lineages. Multiple secondary pages repeating one original statistic count as one lineage. If a cross-check necessarily shares some inputs with the primary model, explain what remains structurally independent.
 
 ## 10. Calculate SAM with actual constraints
 
@@ -369,7 +440,7 @@ Do not copy a published CAGR as a forward forecast without decomposing drivers s
 Use only when a diffusion model fits the adoption mechanism and enough assumptions can be justified. The existence of a canonical diffusion model does not make its parameters observable for a novel product.
 
 ### Reference class
-Prefer **3–5 carefully justified analogs**. Include failed/weak analogs where observable to reduce survivorship bias. Compare only attributes that materially affect the forecast.
+Every full study must **consider** whether a defensible outside-view reference class exists. If not, record why and skip the module. If yes, prefer **3–5 carefully justified analogs**. Include failed/weak analogs where observable to reduce survivorship bias. Compare only attributes that materially affect the forecast.
 
 ### Pricing / WTP
 Prefer observed purchasing, existing economic sacrifice, and real price experiments. Structured preference methods such as discrete choice/conjoint may be recommended or analyzed when real respondent/experimental data exist. Do not use AI-simulated respondents as WTP evidence.
@@ -385,7 +456,9 @@ Go deep when incumbency, switching, channel control, regulatory barriers, networ
 ### Three-case financial forecast
 Run downside/base/upside only when enough load-bearing parameters are `OBSERVED`, `ESTIMATED`, or responsibly `BOUNDED`. Do not create three scenarios from three arbitrary assumption sets merely to make uncertainty look quantified.
 
-## 13. Adversarial research is mandatory
+## 13. Search quality and adversarial research are mandatory
+
+Use [`references/search-strategy.md`](references/search-strategy.md). For every FATAL/HIGH crux, create a search lattice with the supporting observation, refuting observation, preferred source classes, synonym families, confirmatory queries, adversarial queries, and stop condition. Persist decision-critical searches in `search-plan.json` and `search-log.json`.
 
 Do not simply append words like “risk” or “criticism” to the same confirmatory queries. Invert the hypothesis.
 
@@ -420,6 +493,8 @@ Also search for evidence that:
 
 Record meaningful negative searches and contradictory evidence. “No evidence found” is not proof of absence.
 
+Before falsification is complete, every FATAL/HIGH crux must have an adversarial-search record plus an explicit adjudication: strongest evidence for, strongest evidence against, strongest rival explanation, whether the crux judgment changed, and why. Logging contrary evidence without allowing it to update the thesis is adversarial theater.
+
 ## 14. Evidence ledger and evidence burden
 
 Maintain a persistent ledger with stable IDs. Minimum fields:
@@ -428,11 +503,15 @@ Maintain a persistent ledger with stable IDs. Minimum fields:
 - value/range;
 - unit;
 - epistemic state;
-- source and date;
+- source, source ID, date, access date, and effective period;
+- source lineage ID(s) and upstream origin when known;
 - confidence;
+- demand tier when relevant;
 - used-by (crux/TAM/SAM/reachability/economics/etc.);
 - contradiction links/notes;
 - validation next step.
+
+Maintain a separate reproducible search log. The ledger records the evidence that survived; the search log records how decision-critical evidence was sought, refined, and stopped.
 
 The final brief must make the **evidence burden** visible. Count load-bearing variables, not every incidental assumption.
 
@@ -447,15 +526,16 @@ At minimum report:
 
 The short Decision Brief should answer:
 
+- What is the decision hurdle?
 - Is there a credible gap?
-- Is there credible economic demand in that gap?
-- What market size/range is best supported?
+- What is the evidence for problem economic burden, budget availability, solution WTP, and behavioral adoption?
+- What market size/range is best supported, and is the conclusion robust to plausible alternative market definitions?
 - What is genuinely reachable, and what is not yet estimable?
 - Are the economics attractive, or not knowable yet?
 - What fatal gate or crux dominates the decision?
 - What proportion of load-bearing variables remains assumption/unknown-grade?
 - What evidence contradicts the thesis?
-- What is the next cheapest discriminating test?
+- What is the highest-value next evidence, considering decision impact, uncertainty reduction, tractability, and cost/time?
 
 Use one recommendation:
 
@@ -478,24 +558,26 @@ A valid terminal statement is:
 
 ## Minimum inputs
 
-**Idea:**
+**Idea:**  
 ...
 
-**Target customer:**
+**Target customer:**  
 ...
 
-**Problem / job:**
+**Problem / job:**  
 ...
 
-**Initial geography:**
+**Initial geography:**  
 ...
 
-**Decision to make:**
+**Decision to make:**  
 ...
+
+That is enough to start. The agent should not force the user to complete the advanced fields before research begins.
 
 ## Decision context
 
-Choose one:
+Choose one if known:
 
 - napkin-stage idea
 - prototype / pre-revenue
@@ -505,33 +587,49 @@ Choose one:
 - investor / acquisition
 - other
 
+## Scrutiny profile
+
+Choose one if the output needs to survive a particular review standard:
+
+- general
+- venture-seed
+- venture-early
+- venture-growth
+- growth-equity
+- pe-commercial-diligence
+- corporate
+
+Use the profile that matches the real evidence maturity. Do not select a later-stage profile merely to create a more impressive report.
+
 ## Optional advanced inputs
 
-**Business model / price hypothesis:**
+**Business model / price hypothesis:**  
 ...
 
-**Initial beachhead:**
+**Initial beachhead:**  
 ...
 
-**Known competitors / substitutes:**
+**Known competitors / substitutes:**  
 ...
 
-**Known customer evidence / traction:**
+**Known customer evidence / traction:**  
 ...
 
-**Distribution hypothesis:**
+**Distribution hypothesis:**  
 ...
 
-**Time horizon:**
+**Time horizon:**  
 ...
 
-**Required economic outcome / return threshold:**
+**Required economic outcome / return threshold:**  
 ...
 
-**Capital or operating constraints:**
+**Capital or operating constraints:**  
 ...
 
-If an optional input is absent, research it where possible; otherwise mark it as an explicit assumption or `NOT_KNOWABLE_FROM_DESK_RESEARCH`. Do not silently invent it.
+If the economic hurdle is absent, create a clearly **PROVISIONAL** hurdle that means only "enough evidence to justify the next commitment." A final `PURSUE` or `REJECT` recommendation requires a defined hurdle.
+
+If another optional input is absent, research it where possible; otherwise mark it as an explicit assumption or `NOT_KNOWABLE_FROM_DESK_RESEARCH`. Do not silently invent it.
 
 ## Required final output
 
