@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mattlane66/opportunity-underwriting-for-agents-and-humans/market-opportunity-underwriting/schemas/calculations.schema.json",
+  "title": "Market Opportunity Deterministic Calculations",
+  "type": "object",
+  "required": ["schema_version", "entries"],
+  "properties": {
+    "schema_version": {"const": "0.2.0"},
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "kind", "operation", "input_evidence_ids", "parameters", "output", "notes"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^CALC[0-9]{3,}$"},
+          "kind": {"enum": ["TAM", "SAM", "SOM", "CAGR", "UNIT_ECONOMICS", "OTHER"]},
+          "operation": {"enum": ["PRODUCT", "SUM", "DIFFERENCE", "RATIO", "CAGR"]},
+          "input_evidence_ids": {"type": "array", "minItems": 1, "items": {"type": "string", "pattern": "^E[0-9]{3,}$"}},
+          "parameters": {"type": "object"},
+          "output": {
+            "type": "object",
+            "required": ["value", "low", "high", "unit"],
+            "properties": {
+              "value": {"type": ["number", "null"]},
+              "low": {"type": ["number", "null"]},
+              "high": {"type": ["number", "null"]},
+              "unit": {"type": ["string", "null"]}
+            },
+            "additionalProperties": false
+          },
+          "notes": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
