@@ -1,0 +1,200 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mattlane66/opportunity-underwriting-for-agents-and-humans/market-opportunity-underwriting/schemas/research-state.schema.json",
+  "title": "Market Opportunity Underwriting Research State",
+  "type": "object",
+  "required": [
+    "schema_version", "phase", "status", "decision_context", "context_profile", "market_definition",
+    "cruxes", "fatal_gates", "gap", "demand", "sizing", "reachability", "conditional_modules",
+    "falsification", "evidence_burden", "verdict", "next_test", "notes"
+  ],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "phase": {"enum": ["CLASSIFY", "CRUXES", "FATAL_GATES", "ESTABLISH_MARKET", "SIZE", "CONDITIONAL_UNDERWRITING", "FALSIFY", "SYNTHESIZE", "COMPLETE"]},
+    "status": {"enum": ["ACTIVE", "BLOCKED", "COMPLETE"]},
+    "decision_context": {"enum": ["napkin-stage", "prototype-pre-revenue", "early-revenue", "growth-stage", "corporate-market-entry", "investor-acquisition", "other"]},
+    "context_profile": {
+      "type": "object",
+      "required": ["evidence_emphasis", "primary_question"],
+      "properties": {
+        "evidence_emphasis": {"type": "string", "minLength": 1},
+        "primary_question": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "decision_standard": {
+      "type": "object",
+      "properties": {
+        "required_outcome": {"type": ["string", "null"]},
+        "notes": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "market_definition": {
+      "type": "object",
+      "required": ["status", "target_user", "economic_buyer", "problem_job", "geography", "unit_of_demand", "revenue_model", "category_creation", "included", "excluded"],
+      "properties": {
+        "status": {"enum": ["UNSET", "PROVISIONAL", "DEFINED"]},
+        "target_user": {"type": "string"},
+        "economic_buyer": {"type": "string"},
+        "problem_job": {"type": "string"},
+        "geography": {"type": "string"},
+        "unit_of_demand": {"type": "string"},
+        "revenue_model": {"type": "string"},
+        "category_creation": {"type": "boolean"},
+        "included": {"type": "array", "items": {"type": "string"}},
+        "excluded": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "cruxes": {
+      "type": "array",
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["id", "claim", "importance", "support_status", "evidence_ids", "cheapest_test"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^C[0-9]{2,}$"},
+          "claim": {"type": "string", "minLength": 1},
+          "importance": {"enum": ["FATAL", "HIGH", "MEDIUM"]},
+          "support_status": {"enum": ["UNTESTED", "SUPPORTED", "WEAK", "REFUTED", "NOT_KNOWABLE_FROM_DESK_RESEARCH"]},
+          "evidence_ids": {"type": "array", "items": {"type": "string"}},
+          "cheapest_test": {"type": ["string", "null"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "fatal_gates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "condition", "status", "evidence_ids", "continue_reason"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^F[0-9]{2,}$"},
+          "condition": {"type": "string", "minLength": 1},
+          "status": {"enum": ["UNTESTED", "PASS", "FAIL", "UNKNOWN"]},
+          "evidence_ids": {"type": "array", "items": {"type": "string"}},
+          "continue_reason": {"type": ["string", "null"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "gap": {
+      "type": "object",
+      "required": ["status", "evidence_ids", "reasoning"],
+      "properties": {
+        "status": {"enum": ["UNASSESSED", "YES", "NO", "UNCLEAR"]},
+        "evidence_ids": {"type": "array", "items": {"type": "string"}},
+        "reasoning": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "demand": {
+      "type": "object",
+      "required": ["status", "highest_tier", "economic_demand_demonstrated", "evidence_ids", "reasoning"],
+      "properties": {
+        "status": {"enum": ["UNASSESSED", "DEMONSTRATED", "PARTIAL", "NOT_DEMONSTRATED", "UNCLEAR"]},
+        "highest_tier": {"enum": ["A", "B", "C", "D", "E", "F", null]},
+        "economic_demand_demonstrated": {"type": "boolean"},
+        "evidence_ids": {"type": "array", "items": {"type": "string"}},
+        "reasoning": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "sizing": {
+      "type": "object",
+      "required": ["pools", "tam", "cross_checks", "sam"],
+      "properties": {
+        "pools": {
+          "type": "object",
+          "required": ["collapsed", "spend", "revenue", "value"],
+          "properties": {
+            "collapsed": {"type": "boolean"},
+            "spend": {"type": "object"},
+            "revenue": {"type": "object"},
+            "value": {"type": "object"}
+          },
+          "additionalProperties": false
+        },
+        "tam": {"type": "object"},
+        "cross_checks": {"type": "array", "items": {"type": "object"}},
+        "sam": {"type": "object"}
+      },
+      "additionalProperties": false
+    },
+    "reachability": {
+      "type": "object",
+      "required": ["status", "som_estimation", "arbitrary_share_of_tam_or_sam", "model_structure", "parameters", "year3", "year5", "sam_share_output"],
+      "properties": {
+        "status": {"enum": ["UNASSESSED", "NOT_ESTIMABLE", "BOUNDED", "QUANTIFIED"]},
+        "som_estimation": {"enum": ["NOT_ATTEMPTED", "NOT_ESTIMABLE", "BOUNDED", "QUANTIFIED"]},
+        "arbitrary_share_of_tam_or_sam": {"type": "boolean"},
+        "model_structure": {"type": "string"},
+        "parameters": {"type": "array", "items": {"type": "object"}},
+        "year3": {"type": ["number", "null"]},
+        "year5": {"type": ["number", "null"]},
+        "sam_share_output": {"type": ["number", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "conditional_modules": {"type": "object"},
+    "falsification": {
+      "type": "object",
+      "required": ["status", "queries", "evidence_ids", "contradictions"],
+      "properties": {
+        "status": {"enum": ["NOT_RUN", "IN_PROGRESS", "COMPLETE"]},
+        "queries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["query", "inverted"],
+            "properties": {
+              "query": {"type": "string", "minLength": 1},
+              "inverted": {"type": "boolean"}
+            },
+            "additionalProperties": false
+          }
+        },
+        "evidence_ids": {"type": "array", "items": {"type": "string"}},
+        "contradictions": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "evidence_burden": {
+      "type": "object",
+      "required": ["load_bearing_count", "assumption_count", "not_knowable_count", "fatal_gate_assumption"],
+      "properties": {
+        "load_bearing_count": {"type": "integer", "minimum": 0},
+        "assumption_count": {"type": "integer", "minimum": 0},
+        "not_knowable_count": {"type": "integer", "minimum": 0},
+        "fatal_gate_assumption": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "verdict": {
+      "type": "object",
+      "required": ["status", "recommendation", "summary", "confidence"],
+      "properties": {
+        "status": {"enum": ["UNSET", "DRAFT", "FINAL"]},
+        "recommendation": {"enum": ["PURSUE", "TEST", "HOLD", "REJECT", null]},
+        "summary": {"type": "string"},
+        "confidence": {"enum": ["HIGH", "MEDIUM", "LOW", null]}
+      },
+      "additionalProperties": false
+    },
+    "next_test": {
+      "type": "object",
+      "required": ["status", "variable_id", "test", "decision_value", "estimated_cost_time"],
+      "properties": {
+        "status": {"enum": ["UNSET", "DEFINED", "NOT_NEEDED"]},
+        "variable_id": {"type": ["string", "null"]},
+        "test": {"type": "string"},
+        "decision_value": {"type": "string"},
+        "estimated_cost_time": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "notes": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}

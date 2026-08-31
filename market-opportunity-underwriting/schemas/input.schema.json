@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mattlane66/opportunity-underwriting-for-agents-and-humans/market-opportunity-underwriting/schemas/input.schema.json",
+  "title": "Market Opportunity Underwriting Input",
+  "type": "object",
+  "required": ["schema_version", "idea", "target_customer", "problem_job", "geography", "decision", "decision_context", "input_provenance"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "idea": {"type": "string", "minLength": 1},
+    "target_customer": {"type": "string", "minLength": 1},
+    "problem_job": {"type": "string", "minLength": 1},
+    "geography": {"type": "string", "minLength": 1},
+    "decision": {"type": "string", "minLength": 1},
+    "decision_context": {
+      "enum": ["napkin-stage", "prototype-pre-revenue", "early-revenue", "growth-stage", "corporate-market-entry", "investor-acquisition", "other"]
+    },
+    "business_model": {"type": ["string", "null"]},
+    "price_hypothesis": {"type": ["string", "null"]},
+    "beachhead": {"type": ["string", "null"]},
+    "known_competitors": {"type": "array", "items": {"type": "string"}},
+    "known_customer_evidence": {"type": "array", "items": {"type": "string"}},
+    "current_traction": {"type": ["string", "null"]},
+    "distribution_hypothesis": {"type": ["string", "null"]},
+    "time_horizon_years": {"type": "integer", "minimum": 1, "maximum": 20},
+    "required_economic_outcome": {"type": ["string", "null"]},
+    "capital_constraints": {"type": ["string", "null"]},
+    "input_provenance": {
+      "type": "object",
+      "additionalProperties": {"enum": ["USER_SUPPLIED", "EXPLICITLY_PROVISIONAL"]}
+    }
+  },
+  "additionalProperties": false
+}
