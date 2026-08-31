@@ -3,227 +3,46 @@
   "$id": "https://github.com/mattlane66/opportunity-underwriting-for-agents-and-humans/market-opportunity-underwriting/schemas/evidence-ledger.schema.json",
   "title": "Market Opportunity Evidence Ledger",
   "type": "object",
-  "required": [
-    "schema_version",
-    "entries"
-  ],
+  "required": ["schema_version", "entries"],
   "properties": {
-    "schema_version": {
-      "const": "0.2.0"
-    },
+    "schema_version": {"const": "0.2.0"},
     "entries": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": [
-          "id",
-          "claim_input",
-          "epistemic_state",
-          "confidence",
-          "load_bearing",
-          "fatal_gate_related",
-          "demand_tier",
-          "source_lineage_ids",
-          "used_by",
-          "contradictions",
-          "validation_next_step",
-          "claim_temporality",
-          "source_directness",
-          "freshness_checked_at",
-          "primary_source_unavailable_reason",
-          "contradiction_evidence_ids",
-          "conflict_resolution",
-          "conflict_adjudication"
-        ],
+        "required": ["id", "claim_input", "epistemic_state", "confidence", "load_bearing", "fatal_gate_related", "demand_tier", "claim_temporality", "source_directness", "freshness_checked_at", "primary_source_unavailable_reason", "source_lineage_ids", "used_by", "contradictions", "contradiction_evidence_ids", "conflict_resolution", "conflict_adjudication", "validation_next_step"],
         "properties": {
-          "id": {
-            "type": "string",
-            "pattern": "^E[0-9]{3,}$"
-          },
-          "claim_input": {
-            "type": "string",
-            "minLength": 1
-          },
+          "id": {"type": "string", "pattern": "^E[0-9]{3,}$"},
+          "claim_input": {"type": "string", "minLength": 1},
           "value": {},
-          "low": {
-            "type": [
-              "number",
-              "null"
-            ]
-          },
-          "high": {
-            "type": [
-              "number",
-              "null"
-            ]
-          },
-          "unit": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "epistemic_state": {
-            "enum": [
-              "OBSERVED",
-              "ESTIMATED",
-              "BOUNDED",
-              "ASSUMPTION",
-              "NOT_KNOWABLE_FROM_DESK_RESEARCH"
-            ]
-          },
-          "source": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "source_id": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "lineage_id": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "origin_source_id": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "source_lineage_ids": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "source_date": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "accessed_at": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "effective_period": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "source_type": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "confidence": {
-            "enum": [
-              "HIGH",
-              "MEDIUM",
-              "LOW",
-              "NOT_APPLICABLE"
-            ]
-          },
-          "load_bearing": {
-            "type": "boolean"
-          },
-          "fatal_gate_related": {
-            "type": "boolean"
-          },
-          "demand_tier": {
-            "enum": [
-              "A",
-              "B",
-              "C",
-              "D",
-              "E",
-              "F",
-              null
-            ]
-          },
-          "used_by": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "contradictions": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "validation_next_step": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "notes": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "claim_temporality": {
-            "enum": [
-              "CURRENT_PRODUCT_STATE",
-              "TIME_SERIES",
-              "HISTORICAL",
-              "STRUCTURAL"
-            ]
-          },
-          "source_directness": {
-            "enum": [
-              "PRIMARY",
-              "SECONDARY",
-              "COMMUNITY",
-              "UNKNOWN"
-            ]
-          },
-          "freshness_checked_at": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "primary_source_unavailable_reason": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "contradiction_evidence_ids": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "pattern": "^E[0-9]{3,}$"
-            }
-          },
-          "conflict_resolution": {
-            "enum": [
-              "NONE",
-              "PRIMARY_OVERRIDES",
-              "SECONDARY_RETAINED_WITH_REASON",
-              "UNRESOLVED"
-            ]
-          },
-          "conflict_adjudication": {
-            "type": [
-              "string",
-              "null"
-            ]
-          }
+          "low": {"type": ["number", "null"]},
+          "high": {"type": ["number", "null"]},
+          "unit": {"type": ["string", "null"]},
+          "epistemic_state": {"enum": ["OBSERVED", "ESTIMATED", "BOUNDED", "ASSUMPTION", "NOT_KNOWABLE_FROM_DESK_RESEARCH"]},
+          "source": {"type": ["string", "null"]},
+          "source_id": {"type": ["string", "null"]},
+          "lineage_id": {"type": ["string", "null"]},
+          "origin_source_id": {"type": ["string", "null"]},
+          "source_lineage_ids": {"type": "array", "items": {"type": "string"}},
+          "source_date": {"type": ["string", "null"]},
+          "accessed_at": {"type": ["string", "null"]},
+          "effective_period": {"type": ["string", "null"]},
+          "source_type": {"type": ["string", "null"]},
+          "claim_temporality": {"enum": ["CURRENT_PRODUCT_STATE", "TIME_SERIES", "HISTORICAL", "STRUCTURAL"]},
+          "source_directness": {"enum": ["PRIMARY", "SECONDARY", "COMMUNITY", "UNKNOWN"]},
+          "freshness_checked_at": {"type": ["string", "null"]},
+          "primary_source_unavailable_reason": {"type": ["string", "null"]},
+          "confidence": {"enum": ["HIGH", "MEDIUM", "LOW", "NOT_APPLICABLE"]},
+          "load_bearing": {"type": "boolean"},
+          "fatal_gate_related": {"type": "boolean"},
+          "demand_tier": {"enum": ["A", "B", "C", "D", "E", "F", null]},
+          "used_by": {"type": "array", "items": {"type": "string"}},
+          "contradictions": {"type": "array", "items": {"type": "string"}},
+          "contradiction_evidence_ids": {"type": "array", "items": {"type": "string", "pattern": "^E[0-9]{3,}$"}},
+          "conflict_resolution": {"enum": ["NONE", "PRIMARY_OVERRIDES", "SECONDARY_RETAINED_WITH_REASON", "UNRESOLVED"]},
+          "conflict_adjudication": {"type": ["string", "null"]},
+          "validation_next_step": {"type": ["string", "null"]},
+          "notes": {"type": ["string", "null"]}
         },
         "additionalProperties": false
       }
