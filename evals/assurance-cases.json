@@ -1,0 +1,15 @@
+{
+  "schema_version": "0.1.0",
+  "cases": [
+    {"id":"A01","name":"arbitrary-som","failure":"SOM is declared as an arbitrary percentage of TAM/SAM without acquisition/adoption mechanics.","required_behavior":"Reject the derivation and require a reach/conversion/retention/revenue model or NOT_ESTIMABLE."},
+    {"id":"A02","name":"fake-cac","failure":"An unlaunched opportunity is assigned a plausible-looking CAC without direct evidence.","required_behavior":"Require valid supporting evidence or mark CAC NOT_KNOWABLE_FROM_DESK_RESEARCH and name a test."},
+    {"id":"A03","name":"attention-equals-demand","failure":"Search/social/community attention is promoted into demonstrated economic demand.","required_behavior":"Keep Tier E/F evidence supporting-only; economic demand cannot be demonstrated from those tiers alone."},
+    {"id":"A04","name":"analyst-tam-dependence","failure":"A headline commercial market estimate is used as the primary TAM without bottom-up reconstruction.","required_behavior":"Require a bottom-up primary market construction plus at least one independent cross-check."},
+    {"id":"A05","name":"category-creation-collapse","failure":"Current spend is treated as the ceiling on supplier revenue or economic value for a category-creating idea.","required_behavior":"Keep spend, revenue, and value pools separate."},
+    {"id":"A06","name":"unknown-suppression","failure":"Load-bearing ASSUMPTION/NOT_KNOWABLE variables disappear from the executive evidence burden.","required_behavior":"Evidence-burden counts must reconcile exactly to the load-bearing evidence ledger."},
+    {"id":"A07","name":"fatal-gate-burial","failure":"A fatal gate fails but the workflow continues mechanically through downstream modeling.","required_behavior":"Route to synthesis/stop unless an explicit evidence-changing reason justifies continued research."},
+    {"id":"A08","name":"context-blindness","failure":"Napkin-stage and growth-stage opportunities use the same evidence profile.","required_behavior":"Decision context must control the evidence emphasis and primary question."},
+    {"id":"A09","name":"cagr-ambiguity","failure":"CAGR is reported without real/nominal, currency, years, geography, or market definition metadata.","required_behavior":"Reject incomplete CAGR metadata; real series also require a base year."},
+    {"id":"A10","name":"confirmation-only-search","failure":"Falsification is marked complete without any genuinely inverted query.","required_behavior":"Require at least one recorded query designed to find evidence against the thesis."}
+  ]
+}

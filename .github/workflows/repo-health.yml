@@ -1,0 +1,38 @@
+name: Repo health
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: repo-health-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Run deterministic assurance suite
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+
+      - name: Check portable prompt is synchronized
+        run: python market-opportunity-underwriting/scripts/generate_portable_prompt.py --check
+
+      - name: Compile Python sources
+        run: python -m compileall -q market-opportunity-underwriting/scripts tests
