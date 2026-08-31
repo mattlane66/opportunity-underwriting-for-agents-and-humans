@@ -549,6 +549,35 @@ Source authority does not eliminate definition risk. Always record geography, po
 
 Where multiple sources repeat one underlying statistic, treat them as one evidence lineage rather than independent corroboration.
 
+### Current-product-state precedence
+
+For claims about **what a product/provider currently does**, freshness and directness are part of evidence quality.
+
+Classify the claim as one of:
+
+- `CURRENT_PRODUCT_STATE`
+- `TIME_SERIES`
+- `HISTORICAL`
+- `STRUCTURAL`
+
+Classify the source as:
+
+- `PRIMARY`
+- `SECONDARY`
+- `COMMUNITY`
+- `UNKNOWN`
+
+For load-bearing `CURRENT_PRODUCT_STATE` evidence:
+
+- record when freshness was checked;
+- prefer current first-party documentation, release notes, pricing, product pages, filings, or other direct provider evidence when available;
+- if relying on non-primary evidence because first-party evidence is unavailable or materially incomplete, record the reason;
+- link contradictory evidence by evidence ID;
+- if current first-party evidence contradicts a secondary/community claim, explicitly adjudicate the conflict before the non-primary claim can remain load-bearing;
+- if the primary evidence overrides the claim, or the conflict remains unresolved, the contradicted non-primary claim cannot remain load-bearing.
+
+Do not impose a universal age cutoff. Product surfaces change at different speeds; the requirement is an explicit freshness check and source-precedence decision for the claim at hand.
+
 ## 19. Methodological basis and limits
 
 The protocol deliberately combines several traditions rather than pretending they form one validated instrument:
