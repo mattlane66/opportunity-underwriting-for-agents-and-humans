@@ -62,6 +62,8 @@ The relationship is **not a fixed conveyor belt**.
 - Opportunity Underwriting may invoke [Lead User Research](https://github.com/mattlane66/planning-skills-for-agents-and-humans/tree/main/lead-user-research) when a load-bearing uncertainty concerns future-facing needs, advanced users, emerging workarounds, or transferability.
 - Lead User Research may hand off here when it establishes an important need but the remaining question is whether that need constitutes a sufficiently large, reachable, economically attractive market.
 - Evidence from either method does not automatically become accepted product-planning truth. A human still decides whether to pursue the opportunity and what to commit to.
+- When the load-bearing question is **what a defined individual or population might do if a price, product, message, policy, incentive, workflow, or environment changed**, use **[Behavioral Simulation](https://github.com/mattlane66/behavioral-simulation-for-agents-and-humans/tree/main/behavioral-simulation)**. Calibrated simulation may inform scenario analysis, sensitivity ranges, or which real-world test to run next, but it remains model-derived evidence and does not independently establish WTP, adoption, retention, market size, or unit economics.
+
 
 ## Canonical implementation
 
