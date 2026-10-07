@@ -176,4 +176,7 @@ The agent recommends. The human authorizes consequential commitment.
 
 When the least-supported crux concerns future-facing needs, advanced users, emerging workarounds, or transferability, the appropriate evidence method may be [Lead User Research](https://github.com/mattlane66/planning-skills-for-agents-and-humans/tree/main/lead-user-research).
 
+When the active crux is counterfactual behavior—**what a defined person or population might do if a relevant condition changed**—the appropriate evidence method may be **[Behavioral Simulation](https://github.com/mattlane66/behavioral-simulation-for-agents-and-humans/tree/main/behavioral-simulation)**. Treat its outputs as model-derived evidence at the simulation's declared evidence grade. Use them to rank hypotheses, explore sensitivity, compare scenarios, or select a real-world test; do not let simulation independently establish actual WTP, adoption, retention, market size, or unit economics.
+
+
 If the opportunity survives underwriting and the next question is what product to build, hand accepted evidence—not the underwriting narrative as automatic truth—to [Planning Skills](https://github.com/mattlane66/planning-skills-for-agents-and-humans) for framing/shaping.
