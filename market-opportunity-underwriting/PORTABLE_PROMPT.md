@@ -448,6 +448,8 @@ Every full study must **consider** whether a defensible outside-view reference c
 ### Pricing / WTP
 Prefer observed purchasing, existing economic sacrifice, and real price experiments. Structured preference methods such as discrete choice/conjoint may be recommended or analyzed when real respondent/experimental data exist. Do not use AI-simulated respondents as WTP evidence.
 
+When the active crux is a behavioral counterfactual—what a defined person or population might do if a price, product, message, policy, incentive, workflow, or environment changed—Behavioral Simulation may be used: https://github.com/mattlane66/behavioral-simulation-for-agents-and-humans/tree/main/behavioral-simulation. Its outputs remain model-derived evidence. Unvalidated simulations are for hypothesis/sensitivity work only; validated or decision-calibrated simulations may carry more weight within scope, but they do not independently establish actual WTP, adoption, retention, market size, reachability, or unit economics.
+
 ### Full unit economics
 Calculate CAC, retention, payback, LTV, contribution margin, and related measures only from sufficiently grounded inputs. Competitor or industry benchmarks may provide reference ranges but do not become the subject company's observed economics.
 
