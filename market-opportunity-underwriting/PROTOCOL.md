@@ -612,6 +612,22 @@ Use [Lead User Research](https://github.com/mattlane66/planning-skills-for-agent
 
 Lead User evidence remains evidence. It does not itself establish prevalence, TAM, WTP, unit economics, or a build decision.
 
+
+### To Behavioral Simulation
+
+Use **[Behavioral Simulation](https://github.com/mattlane66/behavioral-simulation-for-agents-and-humans/tree/main/behavioral-simulation)** when the active crux is a behavioral counterfactual rather than a fact about the current market—for example:
+
+- response to a changed price, product, message, policy, incentive, workflow, or environment;
+- comparison of candidate interventions before expensive field testing;
+- segment-specific response under a defined scenario;
+- interaction or second-order effects that require dynamic or multi-agent modeling.
+
+Simulation enters underwriting as **model-derived evidence**, never observed market behavior. Preserve its declared evidence grade, validation metric, calibration scope, target population, model/version, date, and transfer limits.
+
+An unvalidated or role-play simulation may generate hypotheses and sensitivity cases only. A held-out validated or decision-calibrated simulation may carry more decision weight within its validated envelope, but it still cannot independently establish actual willingness to pay, adoption, retention, market size, reachability, or unit economics. Those claims continue to require the evidence standards defined by this protocol.
+
+If a simulation is load-bearing to a PURSUE decision, make the simulation's empirical error and the underwriting decision's sensitivity to that error explicit. When that error could flip the decision, route to real-world validation rather than laundering uncertainty through the model.
+
 ### To product planning
 
 When underwriting supports pursuit and the human accepts the opportunity, pass the smallest set of accepted evidence implications into [Planning Skills for Agents and Humans](https://github.com/mattlane66/planning-skills-for-agents-and-humans). Do not automatically convert underwriting claims into product requirements.
